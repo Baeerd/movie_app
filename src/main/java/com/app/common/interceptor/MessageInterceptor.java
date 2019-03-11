@@ -31,6 +31,8 @@ public class MessageInterceptor implements HandlerExceptionResolver {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+        } else {
+            throw (RuntimeException) e;
         }
         return mv;
     }
