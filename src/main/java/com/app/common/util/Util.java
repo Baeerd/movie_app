@@ -8,6 +8,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -80,6 +81,15 @@ public class Util {
         config.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor());
         JSONObject json = JSONObject.fromObject(bean,config);
         return json==null?"":json.toString();
+    }
+
+    /**
+     * 获取当前时间，格式yyyyMMddHHssSSS
+     * @return
+     */
+    public static String getCurrentTime() {
+        DateFormat format = new SimpleDateFormat("yyyyMMddHHssSSS");
+        return format.format(new Date());
     }
 
     /**

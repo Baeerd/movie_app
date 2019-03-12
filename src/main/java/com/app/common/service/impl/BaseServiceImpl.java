@@ -10,7 +10,10 @@ import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
@@ -103,6 +106,13 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         getBaseMapper().find(params);
         PageModel<T> result = PageModel.build(page);
         return result;
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file, File dir) throws IOException {
+        dir.getParentFile().mkdirs();
+        // 上传到指定位置
+        file.transferTo(dir);
     }
 
     private Map<String, String> filterParams(Map<String, String> params) {

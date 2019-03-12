@@ -7,8 +7,8 @@
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />
     <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
-    <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
-    <result column="num" property="num" jdbcType="INT" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
   </resultMap>
 
 
@@ -22,8 +22,8 @@
       state,r_movie_id,total_price,
       num)
     values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
-      #{state,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT},#{totalPrice,jdbcType=DOUBLE},
-      #{num,jdbcType=INT})
+      #{state,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT},#{totalPrice,jdbcType=DECIMAL},
+      #{num,jdbcType=DECIMAL})
   </insert>
 
   <update id="update" parameterType="com.app.order.entity.MovieOrder" >
@@ -45,10 +45,10 @@
               r_movie_id = #{rMovieId,jdbcType=BIGINT},
           </if>
           <if test="totalPrice != null" >
-              total_price = #{totalPrice,jdbcType=DOUBLE},
+              total_price = #{totalPrice,jdbcType=DECIMAL},
           </if>
           <if test="num != null" >
-              num = #{num,jdbcType=INT},
+              num = #{num,jdbcType=DECIMAL},
           </if>
       </set>
   		where id = #{id,jdbcType=BIGINT}
@@ -80,10 +80,10 @@
 		        and r_movie_id = #{rMovieId,jdbcType=BIGINT}
 		      </if>
 		      <if test="totalPrice != null" >
-		        and total_price = #{totalPrice,jdbcType=DOUBLE}
+		        and total_price = #{totalPrice,jdbcType=DECIMAL}
 		      </if>
 		      <if test="num != null" >
-		        and num = #{num,jdbcType=INT}
+		        and num = #{num,jdbcType=DECIMAL}
 		      </if>
 	      </trim>
 	order by id desc

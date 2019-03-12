@@ -10,7 +10,7 @@
     <result column="show_no" property="showNo" jdbcType="VARCHAR" />
     <result column="show_start" property="showStart" jdbcType="TIMESTAMP" />
     <result column="show_end" property="showEnd" jdbcType="TIMESTAMP" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
   </resultMap>
 
 
@@ -26,7 +26,7 @@
       show_start,show_end,price)
     values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
       #{partId,jdbcType=BIGINT},#{movieId,jdbcType=BIGINT},#{showNo,jdbcType=VARCHAR},
-      #{showStart,jdbcType=TIMESTAMP},#{showEnd,jdbcType=TIMESTAMP},#{price,jdbcType=DOUBLE})
+      #{showStart,jdbcType=TIMESTAMP},#{showEnd,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL})
   </insert>
 
   <update id="update" parameterType="com.app.main.entity.RMoviePart" >
@@ -57,7 +57,7 @@
               show_end = #{showEnd,jdbcType=TIMESTAMP},
           </if>
           <if test="price != null" >
-              price = #{price,jdbcType=DOUBLE},
+              price = #{price,jdbcType=DECIMAL},
           </if>
       </set>
   		where id = #{id,jdbcType=BIGINT}
@@ -98,7 +98,7 @@
 		        and show_end = #{showEnd,jdbcType=TIMESTAMP}
 		      </if>
 		      <if test="price != null" >
-		        and price = #{price,jdbcType=DOUBLE}
+		        and price = #{price,jdbcType=DECIMAL}
 		      </if>
 	      </trim>
 	order by id desc
