@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.order.mapper.MovieOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.app.order.entity.MovieOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
+    <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="num" property="num" jdbcType="INT" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id,created_dt,created_by,state,r_movie_id,total_price,num
+  </sql>
+
+
+  <insert id="insert" parameterType="com.app.order.entity.MovieOrder" >
+    insert into movie_order (created_dt,created_by,
+      state,r_movie_id,total_price,
+      num)
+    values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
+      #{state,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT},#{totalPrice,jdbcType=DOUBLE},
+      #{num,jdbcType=INT})
+  </insert>
+
+  <update id="update" parameterType="com.app.order.entity.MovieOrder" >
+    update movie_order
+      <set>
+          <if test="id != null" >
+              id = #{id,jdbcType=BIGINT},
+          </if>
+          <if test="createdDt != null" >
+              created_dt = #{createdDt,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createdBy != null" >
+              created_by = #{createdBy,jdbcType=VARCHAR},
+          </if>
+          <if test="state != null" >
+              state = #{state,jdbcType=VARCHAR},
+          </if>
+          <if test="rMovieId != null" >
+              r_movie_id = #{rMovieId,jdbcType=BIGINT},
+          </if>
+          <if test="totalPrice != null" >
+              total_price = #{totalPrice,jdbcType=DOUBLE},
+          </if>
+          <if test="num != null" >
+              num = #{num,jdbcType=INT},
+          </if>
+      </set>
+  		where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="delete" parameterType="com.app.order.entity.MovieOrder" >
+    delete from movie_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select
+		<include refid="Base_Column_List" />
+	from movie_order
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		      <if test="id != null" >
+		        and id = #{id,jdbcType=BIGINT}
+		      </if>
+		      <if test="createdDt != null" >
+		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createdBy != null" >
+		        and created_by = #{createdBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="state != null" >
+		        and state = #{state,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rMovieId != null" >
+		        and r_movie_id = #{rMovieId,jdbcType=BIGINT}
+		      </if>
+		      <if test="totalPrice != null" >
+		        and total_price = #{totalPrice,jdbcType=DOUBLE}
+		      </if>
+		      <if test="num != null" >
+		        and num = #{num,jdbcType=INT}
+		      </if>
+	      </trim>
+	order by id desc
+  </select>
+</mapper>

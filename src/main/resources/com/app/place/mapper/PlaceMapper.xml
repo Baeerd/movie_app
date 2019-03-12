@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.place.mapper.PlaceMapper" >
+  <resultMap id="BaseResultMap" type="com.app.place.entity.Place" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="place_no" property="placeNo" jdbcType="VARCHAR" />
+    <result column="is_use" property="isUse" jdbcType="VARCHAR" />
+    <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id,created_dt,created_by,place_no,is_use,r_movie_id
+  </sql>
+
+
+  <insert id="insert" parameterType="com.app.place.entity.Place" >
+    insert into place (created_dt,created_by,
+      place_no,is_use,r_movie_id)
+    values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
+      #{placeNo,jdbcType=VARCHAR},#{isUse,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT})
+  </insert>
+
+  <update id="update" parameterType="com.app.place.entity.Place" >
+    update place
+      <set>
+          <if test="id != null" >
+              id = #{id,jdbcType=BIGINT},
+          </if>
+          <if test="createdDt != null" >
+              created_dt = #{createdDt,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createdBy != null" >
+              created_by = #{createdBy,jdbcType=VARCHAR},
+          </if>
+          <if test="placeNo != null" >
+              place_no = #{placeNo,jdbcType=VARCHAR},
+          </if>
+          <if test="isUse != null" >
+              is_use = #{isUse,jdbcType=VARCHAR},
+          </if>
+          <if test="rMovieId != null" >
+              r_movie_id = #{rMovieId,jdbcType=BIGINT},
+          </if>
+      </set>
+  		where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="delete" parameterType="com.app.place.entity.Place" >
+    delete from place
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select
+		<include refid="Base_Column_List" />
+	from place
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		      <if test="id != null" >
+		        and id = #{id,jdbcType=BIGINT}
+		      </if>
+		      <if test="createdDt != null" >
+		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createdBy != null" >
+		        and created_by = #{createdBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="placeNo != null" >
+		        and place_no = #{placeNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="isUse != null" >
+		        and is_use = #{isUse,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rMovieId != null" >
+		        and r_movie_id = #{rMovieId,jdbcType=BIGINT}
+		      </if>
+	      </trim>
+	order by id desc
+  </select>
+</mapper>

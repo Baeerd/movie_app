@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.part.mapper.MoviePartMapper" >
+  <resultMap id="BaseResultMap" type="com.app.part.entity.MoviePart" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_remark" property="partRemark" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id,created_dt,created_by,part_name,part_remark,image
+  </sql>
+
+
+  <insert id="insert" parameterType="com.app.part.entity.MoviePart" >
+    insert into movie_part (created_dt,created_by,
+      part_name,part_remark,image)
+    values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
+      #{partName,jdbcType=VARCHAR},#{partRemark,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="update" parameterType="com.app.part.entity.MoviePart" >
+    update movie_part
+      <set>
+          <if test="id != null" >
+              id = #{id,jdbcType=BIGINT},
+          </if>
+          <if test="createdDt != null" >
+              created_dt = #{createdDt,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createdBy != null" >
+              created_by = #{createdBy,jdbcType=VARCHAR},
+          </if>
+          <if test="partName != null" >
+              part_name = #{partName,jdbcType=VARCHAR},
+          </if>
+          <if test="partRemark != null" >
+              part_remark = #{partRemark,jdbcType=VARCHAR},
+          </if>
+          <if test="image != null" >
+              image = #{image,jdbcType=VARCHAR},
+          </if>
+      </set>
+  		where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="delete" parameterType="com.app.part.entity.MoviePart" >
+    delete from movie_part
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select
+		<include refid="Base_Column_List" />
+	from movie_part
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		      <if test="id != null" >
+		        and id = #{id,jdbcType=BIGINT}
+		      </if>
+		      <if test="createdDt != null" >
+		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createdBy != null" >
+		        and created_by = #{createdBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="partName != null" >
+		        and part_name = #{partName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="partRemark != null" >
+		        and part_remark = #{partRemark,jdbcType=VARCHAR}
+		      </if>
+		      <if test="image != null" >
+		        and image = #{image,jdbcType=VARCHAR}
+		      </if>
+	      </trim>
+	order by id desc
+  </select>
+</mapper>
