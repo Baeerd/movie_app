@@ -11,7 +11,7 @@
     <groupId>com</groupId>
     <artifactId>app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>app</name>
     <description>server for app</description>
 
@@ -101,6 +101,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.app.AppApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
 
