@@ -100,8 +100,6 @@ public class BaseController<T> {
         List<T> entityLs = Util.jsonArrToList(jsonStr, entityClass);
         for (T entity : entityLs) {
             AbstractEntity ae = (AbstractEntity)entity;
-            ae.setUpdatedBy(LoginUtil.getUserName());
-            ae.setUpdatedDt(new Date());
         }
         getBaseService().updateAll(entityLs);
         return new Response().success();
@@ -157,8 +155,6 @@ public class BaseController<T> {
     @RequestMapping("/update")
     public Response update(@RequestBody T entity) {
         AbstractEntity ae = (AbstractEntity)entity;
-        ae.setUpdatedBy(LoginUtil.getUserName());
-        ae.setUpdatedDt(new Date());
         getBaseService().update(entity);
         return new Response().success();
     }
@@ -172,8 +168,6 @@ public class BaseController<T> {
     public Response updateAll(@RequestBody List<T> entityLs) {
         for (T entity : entityLs) {
             AbstractEntity ae = (AbstractEntity)entity;
-            ae.setUpdatedBy(LoginUtil.getUserName());
-            ae.setUpdatedDt(new Date());
         }
         getBaseService().updateAll(entityLs);
         return new Response().success();

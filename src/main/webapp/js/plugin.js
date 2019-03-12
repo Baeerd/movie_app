@@ -149,6 +149,8 @@ function formShowDataListener() {
                    // 如果class中包含initSelect说明是自定义的可配置的下拉框
                    if(inputClass&&inputClass.indexOf("initSelect")!=-1) {
                        cacheselect[nameAttr] = json[nameAttr];
+                   } else {
+                       $(this).val(json[nameAttr]);
                    }
                }
             });

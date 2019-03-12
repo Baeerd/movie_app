@@ -1,14 +1,14 @@
 package com.app.user.service.impl;
 
 import com.app.common.exception.MessageException;
-import com.app.common.service.impl.BaseServiceImpl;
-import com.app.user.entity.User;
-import com.app.user.mapper.UserMapper;
-import com.app.user.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.common.service.impl.BaseServiceImpl;
+import com.app.user.entity.User;
+import com.app.user.mapper.UserMapper;
+import com.app.user.service.UserService;
 
 import java.util.HashMap;
 import java.util.List;

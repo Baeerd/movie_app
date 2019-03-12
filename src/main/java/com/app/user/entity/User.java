@@ -2,24 +2,34 @@ package com.app.user.entity;
 
 import com.app.common.entity.AbstractEntity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * 用户表
- */
 public class User extends AbstractEntity{
+
+    private String sex;
+
+    private String name;
 
     private String username;
 
     private String password;
 
-    private String age;
+    public String getSex() {
+        return sex;
+    }
 
-    private String email;
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-    private String gender;
+    public String getName() {
+        return name;
+    }
 
-    private Date loginDt;
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUsername() {
         return username;
@@ -35,37 +45,5 @@ public class User extends AbstractEntity{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getLoginDt() {
-        return loginDt;
-    }
-
-    public void setLoginDt(Date loginDt) {
-        this.loginDt = loginDt;
     }
 }

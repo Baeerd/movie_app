@@ -28,7 +28,7 @@ public class CommonController {
     }
 
     /**
-     * 跳转到首页,首页路径在application.yml文件中配置
+     * 跳转到首页,首页路径在application.properties文件中配置
      * @param model 可以向请求中放值
      * @return
      */
@@ -37,7 +37,6 @@ public class CommonController {
         User user = new User();
         user.setUsername("username1");
         user.setPassword("password1");
-        user.setLoginDt(new Date());
         System.out.println(Util.beanToJson(user));
         model.addAttribute("user", Util.beanToJson(user));
         return appConfig.getIndex();

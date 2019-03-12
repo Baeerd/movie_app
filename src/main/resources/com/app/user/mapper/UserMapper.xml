@@ -2,106 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.user.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.app.user.entity.User" >
-    <id column="sid" property="sid" jdbcType="BIGINT" />
-    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
-    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
-    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
-    <result column="updated_dt" property="updatedDt" jdbcType="TIMESTAMP" />
-    <result column="version" property="version" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="age" property="age" jdbcType="BIGINT" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="VARCHAR" />
-    <result column="login_dt" property="loginDt" jdbcType="TIMESTAMP" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
   </resultMap>
 
 
   <sql id="Base_Column_List" >
-    sid,created_by,created_dt,updated_by,updated_dt,version,username,password,
-    age,email,gender,login_dt
+    id,username,password,sex,name,created_dt,created_by
   </sql>
 
 
-  <insert id="insert" parameterType="com.app.user.entity.User" useGeneratedKeys="true" keyProperty="sid">
-    insert into USER (sid,created_by,created_dt,
-      updated_by,updated_dt,version,
-      username,password,age,
-      email,gender,login_dt)
-    values (#{sid,jdbcType=BIGINT},#{createdBy,jdbcType=VARCHAR},#{createdDt,jdbcType=TIMESTAMP},
-      #{updatedBy,jdbcType=VARCHAR},#{updatedDt,jdbcType=TIMESTAMP},#{version,jdbcType=BIGINT},
-      #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{age,jdbcType=BIGINT},
-      #{email,jdbcType=VARCHAR},#{gender,jdbcType=VARCHAR},#{loginDt,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.app.user.entity.User" >
+    insert into User (username,password,
+      sex,name,created_dt,
+      created_by)
+    values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{createdDt,jdbcType=TIMESTAMP},
+      #{createdBy,jdbcType=VARCHAR})
   </insert>
 
   <update id="update" parameterType="com.app.user.entity.User" >
-    update USER set VERSION = VERSION+1
-      <if test="sid != null" >
-        ,sid = #{sid,jdbcType=BIGINT}
-      </if>
-      <if test="createdBy != null" >
-        ,created_by = #{createdBy,jdbcType=VARCHAR}
-      </if>
-      <if test="createdDt != null" >
-        ,created_dt = #{createdDt,jdbcType=TIMESTAMP}
-      </if>
-      <if test="updatedBy != null" >
-        ,updated_by = #{updatedBy,jdbcType=VARCHAR}
-      </if>
-      <if test="updatedDt != null" >
-        ,updated_dt = #{updatedDt,jdbcType=TIMESTAMP}
-      </if>
-      <if test="version != null" >
-        ,version = #{version,jdbcType=BIGINT}
-      </if>
-      <if test="username != null" >
-        ,username = #{username,jdbcType=VARCHAR}
-      </if>
-      <if test="password != null" >
-        ,password = #{password,jdbcType=VARCHAR}
-      </if>
-      <if test="age != null" >
-        ,age = #{age,jdbcType=BIGINT}
-      </if>
-      <if test="email != null" >
-        ,email = #{email,jdbcType=VARCHAR}
-      </if>
-      <if test="gender != null" >
-        ,gender = #{gender,jdbcType=VARCHAR}
-      </if>
-      <if test="loginDt != null" >
-        ,login_dt = #{loginDt,jdbcType=TIMESTAMP}
-      </if>
-  		where sid = #{sid,jdbcType=BIGINT}
+    update User
+      <set>
+          <if test="username != null" >
+              username = #{username,jdbcType=VARCHAR},
+          </if>
+          <if test="password != null" >
+              password = #{password,jdbcType=VARCHAR},
+          </if>
+          <if test="sex != null" >
+              sex = #{sex,jdbcType=VARCHAR},
+          </if>
+          <if test="name != null" >
+              name = #{name,jdbcType=VARCHAR},
+          </if>
+          <if test="createdDt != null" >
+              created_dt = #{createdDt,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createdBy != null" >
+              created_by = #{createdBy,jdbcType=VARCHAR},
+          </if>
+      </set>
+  		where id = #{id,jdbcType=BIGINT}
   </update>
 
   <delete id="delete" parameterType="com.app.user.entity.User" >
-    delete from USER
-    where sid = #{sid,jdbcType=BIGINT}
+    delete from User
+    where id = #{id,jdbcType=BIGINT}
   </delete>
 
   <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
   	select
 		<include refid="Base_Column_List" />
-	from USER
+	from User
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-		      <if test="sid != null" >
-		        and sid = #{sid,jdbcType=BIGINT}
-		      </if>
-		      <if test="createdBy != null" >
-		        and created_by = #{createdBy,jdbcType=VARCHAR}
-		      </if>
-		      <if test="createdDt != null" >
-		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
-		      </if>
-		      <if test="updatedBy != null" >
-		        and updated_by = #{updatedBy,jdbcType=VARCHAR}
-		      </if>
-		      <if test="updatedDt != null" >
-		        and updated_dt = #{updatedDt,jdbcType=TIMESTAMP}
-		      </if>
-		      <if test="version != null" >
-		        and version = #{version,jdbcType=BIGINT}
+		      <if test="id != null" >
+		        and id = #{id,jdbcType=BIGINT}
 		      </if>
 		      <if test="username != null" >
 		        and username = #{username,jdbcType=VARCHAR}
@@ -109,19 +70,19 @@
 		      <if test="password != null" >
 		        and password = #{password,jdbcType=VARCHAR}
 		      </if>
-		      <if test="age != null" >
-		        and age = #{age,jdbcType=BIGINT}
+		      <if test="sex != null" >
+		        and sex = #{sex,jdbcType=VARCHAR}
 		      </if>
-		      <if test="email != null" >
-		        and email = #{email,jdbcType=VARCHAR}
+		      <if test="name != null" >
+		        and name = #{name,jdbcType=VARCHAR}
 		      </if>
-		      <if test="gender != null" >
-		        and gender = #{gender,jdbcType=VARCHAR}
+		      <if test="createdDt != null" >
+		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
 		      </if>
-		      <if test="loginDt != null" >
-		        and login_dt = #{loginDt,jdbcType=TIMESTAMP}
+		      <if test="createdBy != null" >
+		        and created_by = #{createdBy,jdbcType=VARCHAR}
 		      </if>
 	      </trim>
-	order by sid desc
+	order by id desc
   </select>
 </mapper>
