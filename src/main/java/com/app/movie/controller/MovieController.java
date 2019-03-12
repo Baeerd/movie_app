@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import com.app.common.controller.BaseController;
 import com.app.movie.entity.Movie;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @Scope("prototype")
 @RequestMapping("/movie")
 public class MovieController extends BaseController<Movie>{

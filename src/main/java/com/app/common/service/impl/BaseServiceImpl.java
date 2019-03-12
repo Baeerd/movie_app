@@ -109,6 +109,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List<T> findByParam(Map<String, String> params) {
+        List<T> list = getBaseMapper().find(params);
+        return list;
+    }
+
+    @Override
     public void uploadFile(MultipartFile file, File dir) throws IOException {
         dir.getParentFile().mkdirs();
         // 上传到指定位置

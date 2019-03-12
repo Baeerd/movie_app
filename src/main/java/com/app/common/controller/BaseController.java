@@ -206,6 +206,18 @@ public class BaseController<T> {
     }
 
     /**
+     * 参数查询
+     * @return
+     */
+    @RequestMapping("/findByParam")
+    public Response findByParam(HttpServletRequest request) {
+        String json = getJsonFromRequest(request);
+        Map<String, String> params = Util.jsonToMap(json);
+        List<T> list = getBaseService().findByParam(params);
+        return new Response().success(list);
+    }
+
+    /**
      * 读取request中的json信息
      * @return jsonStr
      */

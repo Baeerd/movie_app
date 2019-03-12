@@ -65,4 +65,10 @@ public interface BaseService<T> {
      * @param dir 需要放的文件路径
      */
     public void uploadFile(MultipartFile file, File dir) throws IOException;
+
+    /**
+     * 参数查询
+     * @return
+     */
+    public List<T> findByParam(Map<String, String> params);
 }

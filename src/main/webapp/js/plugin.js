@@ -2,6 +2,7 @@
  * 缓存自定义下拉框回显所需要的值
  */
 var cacheselect = {};
+var tableDataParam = "";
 
 /**
  * 替换全部文本
@@ -155,6 +156,47 @@ function formShowDataListener() {
                }
             });
         }
+    });
+}
+
+/**
+ * 初始化表格内容
+ * @param sourceUrl
+ * @param columns
+ */
+function dataTableInit(sourceUrl, columns, retrieveData) {
+    $('.dataTable').dataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        // "paging": true,//开启表格分页
+        // "bFilter": false,//去掉搜索框
+        "ajaxSource": sourceUrl,//这个是请求的地址
+        "serverData": retrieveData, // 获取数据的处理函数
+        // 每次创建是否销毁以前的DataTable,默认false
+        "destroy": true,
+        "columns": columns
     });
 }
 
