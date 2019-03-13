@@ -11,6 +11,7 @@
     <result column="num" property="num" jdbcType="DECIMAL" />
 
     <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
+    <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
     <result column="SHOW_START" property="showStart" jdbcType="TIMESTAMP" />
     <result column="IMAGE" property="image" jdbcType="VARCHAR" />
   </resultMap>
@@ -99,6 +100,68 @@
         FROM movie_order a JOIN r_movie_part b ON a.r_movie_id = b.id JOIN movie c ON b.movie_id = c.id
         WHERE a.created_by = #{username}
         ORDER BY a.created_dt DESC
-        LIMIT 0,4
+        LIMIT 0,3
+    </select>
+
+    <select id="findOrderList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT a.*, b.part_name, b.movie_name, b.show_start, b.movie_image image
+        FROM movie_order a JOIN v_movie b ON a.r_movie_id = b.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and a.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                and a.state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="rMovieId != null" >
+                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            </if>
+            <if test="totalPrice != null" >
+                and a.total_price = #{totalPrice,jdbcType=DECIMAL}
+            </if>
+            <if test="num != null" >
+                and a.num = #{num,jdbcType=DECIMAL}
+            </if>
+            <if test="orderSearch != null">
+                and (b.part_name like '%${orderSearch}%' or b.movie_name like '%${orderSearch}%')
+            </if>
+        </trim>
+    </select>
+
+    <select id="findOrderListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(0)
+        FROM movie_order a JOIN v_movie b ON a.r_movie_id = b.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and a.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                and a.state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="rMovieId != null" >
+                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            </if>
+            <if test="totalPrice != null" >
+                and a.total_price = #{totalPrice,jdbcType=DECIMAL}
+            </if>
+            <if test="num != null" >
+                and a.num = #{num,jdbcType=DECIMAL}
+            </if>
+            <if test="orderSearch != null">
+                and (b.part_name like '%${orderSearch}%' or b.movie_name like '%${orderSearch}%')
+            </if>
+        </trim>
     </select>
 </mapper>

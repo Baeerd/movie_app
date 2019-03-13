@@ -1,5 +1,7 @@
 package com.app.order.service;
 
+import com.app.comment.entity.Comment;
+import com.app.common.entity.PageModel;
 import com.app.common.service.BaseService;
 import com.app.order.entity.MovieOrder;
 
@@ -9,8 +11,10 @@ import java.util.Map;
 public interface MovieOrderService extends BaseService<MovieOrder>{
 
     /**
-     * 查询个人所有订单
+     * 查询个人所有订单(前4个)
      * @return
      */
     public List<MovieOrder> findOrderForIndex();
+
+    PageModel<MovieOrder> findOrderList(Map<String, String> params);
 }

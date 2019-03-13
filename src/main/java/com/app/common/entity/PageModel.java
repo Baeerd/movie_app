@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分页实体，包含分页相关信息
@@ -36,10 +37,12 @@ public class PageModel<T> {
         this.setPageSize(pageSize);
     }
 
-    public static <T> PageModel<T> build(Page<T> page) {
+    public static <T> PageModel<T> build(Page<T> page, Map<String, String> params) {
         PageModel<T> pageModel = new PageModel<>();
         BeanUtils.copyProperties(page.toPageInfo(), pageModel);
         pageModel.setList(page.toPageInfo().getList());
+        pageModel.setPageNum(Integer.valueOf(params.get("pageNum")==null?"1":params.get("pageNum")));
+        pageModel.setPageSize(Integer.valueOf(params.get("pageSize")==null?"10":params.get("pageSize")));
         return pageModel;
     }
 

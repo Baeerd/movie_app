@@ -117,4 +117,38 @@
         </trim>
         order by id desc
     </select>
+
+    <select id="findCommentListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(0)
+        FROM COMMENT a JOIN v_movie b ON a.r_movie_id = b.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and a.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="content != null" >
+                and a.content like '%${content}%'
+            </if>
+            <if test="level != null" >
+                and a.level = #{level,jdbcType=VARCHAR}
+            </if>
+            <if test="rMovieId != null" >
+                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            </if>
+            <if test="partName != null" >
+                and b.part_name like '%${partName}%'
+            </if>
+            <if test="movieName != null" >
+                and b.movie_name like '%${movieName}%'
+            </if>
+            <if test="commentSearch != null">
+                and (a.content like '%${commentSearch}%' or b.part_name like '%${commentSearch}%' or b.movie_name like '%${commentSearch}%')
+            </if>
+        </trim>
+    </select>
 </mapper>

@@ -1,7 +1,9 @@
 package com.app.order.service.impl;
 
+import com.app.comment.entity.Comment;
 import com.app.common.entity.PageModel;
 import com.app.common.util.LoginUtil;
+import com.app.order.entity.MovieOrderVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,17 @@ public class MovieOrderServiceImpl extends BaseServiceImpl<MovieOrder> implement
     @Override
     public List<MovieOrder> findOrderForIndex() {
         return movieOrderMapper.findOrderForIndex(LoginUtil.getUserName());
+    }
+
+    @Override
+    public PageModel<MovieOrder> findOrderList(Map<String, String> params) {
+        // 过滤params
+        params = filterParams(params);
+        Integer total = movieOrderMapper.findOrderListCount(params);
+        Page<MovieOrder> page = PageHelper.startPage(Integer.valueOf(params.get("pageNum")), Integer.valueOf(params.get("pageSize")));
+        movieOrderMapper.findOrderList(params);
+        PageModel<MovieOrder> result = PageModel.build(page, params);
+        result.setTotal(total);
+        return result;
     }
 }

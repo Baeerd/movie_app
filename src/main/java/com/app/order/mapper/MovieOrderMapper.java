@@ -1,5 +1,6 @@
 package com.app.order.mapper;
 
+import com.app.order.entity.MovieOrderVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -14,4 +15,8 @@ import java.util.Map;
 public interface MovieOrderMapper extends BaseMapper<MovieOrder>{
 
     List<MovieOrder> findOrderForIndex(@Param("username") String username);
+
+    List<MovieOrderVo> findOrderList(Map<String, String> params);
+
+    Integer findOrderListCount(Map<String,String> params);
 }

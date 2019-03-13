@@ -8,6 +8,8 @@ public class MovieOrderVo extends MovieOrder{
 
     private String movieName;
 
+    private String partName;
+
     private Date createdDt;
 
     private String createdDtView;
@@ -60,5 +62,13 @@ public class MovieOrderVo extends MovieOrder{
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public void setPartName(String partName) {
+        this.partName = partName;
     }
 }

@@ -104,7 +104,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         params = filterParams(params);
         Page<T> page = PageHelper.startPage(Integer.valueOf(params.get("pageNum")), Integer.valueOf(params.get("pageSize")));
         getBaseMapper().find(params);
-        PageModel<T> result = PageModel.build(page);
+        PageModel<T> result = PageModel.build(page,params);
         return result;
     }
 

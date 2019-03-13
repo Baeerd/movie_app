@@ -24,9 +24,11 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements Comm
     public PageModel<Comment> findCommentList(Map<String, String> params) {
         // 过滤params
         params = filterParams(params);
+        Integer total = commentMapper.findCommentListCount(params);
         Page<Comment> page = PageHelper.startPage(Integer.valueOf(params.get("pageNum")), Integer.valueOf(params.get("pageSize")));
         commentMapper.findCommentList(params);
-        PageModel<Comment> result = PageModel.build(page);
+        PageModel<Comment> result = PageModel.build(page, params);
+        result.setTotal(total);
         return result;
     }
 }

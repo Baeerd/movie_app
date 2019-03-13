@@ -11,7 +11,12 @@
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                     <i class="fa fa-tasks"></i>
-                    <span class="badge">${userOrderList.size()}</span>
+                    <c:if test="${userOrderList.size() == 3}">
+                        <span class="badge">3+</span>
+                    </c:if>
+                    <c:if test="${userOrderList.size() != 3}">
+                        <span class="badge">${userOrderList.size()}</span>
+                    </c:if>
                 </a>
                 <div class="dropdown-menu dropdown-menu-head pull-right">
                     <h5 class="title">我的订单</h5>
@@ -57,21 +62,21 @@
                                 </a>
                             </c:forEach>
                         </li>
-                        <li class="last"> <a href="#">查看全部订单</a> </li>
+                        <li class="last"> <a href="/order/orderList">查看全部订单</a> </li>
                     </ul>
                 </div>
             </li>
 
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <img src="/assets/images/users/avatar-6.jpg" alt="" />
+                    <img src="/assets/images/users/avatar-7.jpg" alt="" />
                     ${loginUser.name}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                     <li> <a href="#"> <i class="fa fa-wrench"></i> 设置 </a> </li>
                     <li> <a href="#"> <i class="fa fa-user"></i> 我的订单 </a> </li>
-                    <li> <a href="#"> <i class="fa fa-info"></i> 我的评论 </a> </li>
+                    <li> <a href="/comment/commentList"> <i class="fa fa-info"></i> 我的评论 </a> </li>
                     <li> <a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a> </li>
                 </ul>
             </li>
