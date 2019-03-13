@@ -2,6 +2,7 @@ package com.app.comment.controller;
 
 import com.app.comment.service.CommentService;
 import com.app.common.entity.PageModel;
+import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,9 +29,14 @@ public class CommentController extends BaseController<Comment>{
     public ModelAndView commentList(HttpServletRequest request) {
         String json = getJsonFromRequest(request);
         Map<String, String> params = Util.jsonToMap(json);
+        // 判断是否是管理员，如果不是管理员，则只能查看自己的评论
+        if(!LoginUtil.isAdmin()) {
+            params.put("createdBy", LoginUtil.getUserName());
+        }
         PageModel<Comment> page = commentService.findCommentList(params);
         ModelAndView modelAndView = new ModelAndView("comment/commentList");
         modelAndView.addObject("page", page);
+        // 回显查询条件
         if(params.get("commentSearch") != null && !"".equals(params.get("commentSearch"))) {
             modelAndView.addObject("commentSearch", params.get("commentSearch"));
         }

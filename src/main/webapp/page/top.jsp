@@ -65,14 +65,14 @@
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <img src="/assets/images/users/avatar-6.jpg" alt="" />
-                    admin
+                    ${loginUser.name}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                     <li> <a href="#"> <i class="fa fa-wrench"></i> 设置 </a> </li>
                     <li> <a href="#"> <i class="fa fa-user"></i> 我的订单 </a> </li>
                     <li> <a href="#"> <i class="fa fa-info"></i> 我的评论 </a> </li>
-                    <li> <a href="#"> <i class="fa fa-lock"></i> 注销 </a> </li>
+                    <li> <a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a> </li>
                 </ul>
             </li>
 

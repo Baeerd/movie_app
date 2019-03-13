@@ -57,6 +57,17 @@ public class LoginUtil {
         return user.getUsername().equals(userName);
     }
 
+    /**
+     * 判断是否是管理员
+     * @return
+     */
+    public static boolean isAdmin() {
+        if(user != null && user.getUsername() != null) {
+            return "admin".equals(user.getUsername());
+        }
+        return false;
+    }
+
     public static void setInterceptorPath(String path) {
         interceptorPath = path;
     }

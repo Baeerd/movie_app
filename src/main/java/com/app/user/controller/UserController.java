@@ -60,4 +60,10 @@ public class UserController extends BaseController<User>{
         System.out.println(user);
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "/";
+    }
+
 }
