@@ -24,13 +24,13 @@
 <body class="sticky-header">
 
     <!-- 菜单 -->
-    <%@include file="menu.jsp"%>
+    <%@include file="../menu.jsp"%>
 
     <!-- main content start-->
     <div class="main-content" >
 
         <!-- 头部 -->
-        <%@include file="top.jsp"%>
+        <%@include file="../top.jsp"%>
 
         <!--body wrapper start-->
         <div class="wrapper">
@@ -72,6 +72,7 @@
                             <table class="display table dataTable">
                                 <thead>
                                 <tr>
+                                    <th><input type='checkbox' name='checkBox1' value='" + date + "'/><span class='lbl'></span></th>
                                     <th>序号</th>
                                     <th>创建人</th>
                                     <th>是否上架</th>
@@ -118,6 +119,18 @@
             var url = "/movie/findByParam";
             // 加载table列表
             var colModel = [
+                {
+                    "sTitle": '',
+                    "sClass": "center", "bSortable": false, "sWidth": "20",
+                    "mRender": function (settings, rowIdx, rec, type) {
+                        var date = rec.id + "/" + rec.cjr;
+
+                        /*var btnBind = "<label><input type='checkbox' name='checkBox1' value='" + rec.basewxid + "'/><span class='lbl'></span></label>";*/
+                        var btnBind = "<label><input type='checkbox' name='checkBox1' value='" + date + "'/><span class='lbl'></span></label>";
+                        return btnBind;
+                    },
+                    "bSortable": false
+                },
                 {"data": "id","bSortable": false},
                 {"data": "createdBy","bSortable": true},
                 {"data": "isGrounding","bSortable": false},

@@ -39,7 +39,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new LoginInterceptor());
         // 拦截的地址
         String[] patterns = new String[]{
-                "/"
+                "/**"
         };
         interceptorRegistration.addPathPatterns(patterns);
         // 不拦截的地址

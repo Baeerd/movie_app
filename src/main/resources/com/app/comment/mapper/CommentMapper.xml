@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.comment.mapper.CommentMapper" >
-  <resultMap id="BaseResultMap" type="com.app.comment.entity.Comment" >
+  <resultMap id="BaseResultMap" type="com.app.comment.entity.CommentVo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="level" property="level" jdbcType="VARCHAR" />
     <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
+
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="movie_name" property="movieName" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -79,4 +82,39 @@
 	      </trim>
 	order by id desc
   </select>
+
+    <select id="findCommentList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT a.*, b.part_name, b.movie_name
+        FROM COMMENT a JOIN v_movie b ON a.r_movie_id = b.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and a.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="content != null" >
+                and a.content like '%${content}%'
+            </if>
+            <if test="level != null" >
+                and a.level = #{level,jdbcType=VARCHAR}
+            </if>
+            <if test="rMovieId != null" >
+                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            </if>
+            <if test="partName != null" >
+                and b.part_name like '%${partName}%'
+            </if>
+            <if test="movieName != null" >
+                and b.movie_name like '%${movieName}%'
+            </if>
+            <if test="commentSearch != null">
+                and (a.content like '%${commentSearch}%' or b.part_name like '%${commentSearch}%' or b.movie_name like '%${commentSearch}%')
+            </if>
+        </trim>
+        order by id desc
+    </select>
 </mapper>

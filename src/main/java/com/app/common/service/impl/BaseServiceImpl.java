@@ -121,7 +121,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         file.transferTo(dir);
     }
 
-    private Map<String, String> filterParams(Map<String, String> params) {
+    protected Map<String, String> filterParams(Map<String, String> params) {
         if(params==null) {
             params = new HashMap<>();
         }

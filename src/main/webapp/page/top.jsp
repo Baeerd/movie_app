@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/js/plugin.js"></script>
 <div class="header-section">
 
@@ -10,57 +11,51 @@
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                     <i class="fa fa-tasks"></i>
-                    <span class="badge">3</span>
+                    <span class="badge">${userOrderList.size()}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-head pull-right">
                     <h5 class="title">我的订单</h5>
                     <ul class="dropdown-list">
                         <li class="notification-scroll-list notification-list ">
-                            <!-- list item-->
-                            <a href="javascript:void(0);" class="list-group-item">
-                                <div class="media">
-                                    <div class="pull-left p-r-10">
-                                        <em class="fa  fa-shopping-cart noti-primary"></em>
+                            <c:forEach items="${userOrderList}" var="order">
+                                <!-- list item-->
+                                <a href="javascript:void(0);" class="list-group-item">
+                                    <div class="media">
+                                        <div class="pull-left p-r-10">
+                                            <img src="${order.image}" width="50" height="50"/>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="media-heading">${order.movieName}</h5>
+                                            <p class="m-0">
+                                                <small>上映时间：${order.showStartView}</small>
+                                            </p>
+                                            <p class="m-0">
+                                                <small>总额：${order.totalPrice}</small>
+                                                <small>票数：${order.num}</small>
+                                            </p>
+                                            <p class="m-0">
+                                                <c:choose>
+                                                    <c:when test="${order.state == '1'}">
+                                                        <small>
+                                                            <span style="color: #0e90d2; ">已支付</span>
+                                                        </small>
+                                                    </c:when>
+                                                    <c:when test="${order.state == '2'}">
+                                                        <small>
+                                                            <span style="color: black; ">已退款</span>
+                                                        </small>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <small>
+                                                            <span style="color: red; ">未支付</span>
+                                                        </small>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">订单1.</h5>
-                                        <p class="m-0">
-                                            <small>29 min ago</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <!-- list item-->
-                            <a href="javascript:void(0);" class="list-group-item">
-                                <div class="media">
-                                    <div class="pull-left p-r-10">
-                                        <em class="fa  fa-shopping-cart noti-primary"></em>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">订单2.</h5>
-                                        <p class="m-0">
-                                            <small>40 min ago</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <!-- list item-->
-                            <a href="javascript:void(0);" class="list-group-item">
-                                <div class="media">
-                                    <div class="pull-left p-r-10">
-                                        <em class="fa  fa-shopping-cart noti-primary"></em>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">订单3.</h5>
-                                        <p class="m-0">
-                                            <small>50 min ago</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-
+                                </a>
+                            </c:forEach>
                         </li>
                         <li class="last"> <a href="#">查看全部订单</a> </li>
                     </ul>

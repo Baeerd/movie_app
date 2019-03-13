@@ -34,11 +34,6 @@ public class CommonController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        User user = new User();
-        user.setUsername("username1");
-        user.setPassword("password1");
-        System.out.println(Util.beanToJson(user));
-        model.addAttribute("user", Util.beanToJson(user));
         return appConfig.getIndex();
     }
 

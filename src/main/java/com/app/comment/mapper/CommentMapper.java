@@ -12,4 +12,5 @@ import java.util.Map;
 @Mapper
 public interface CommentMapper extends BaseMapper<Comment>{
 
+    List<Comment> findCommentList(Map<String, String> params);
 }

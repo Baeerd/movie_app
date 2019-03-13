@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.order.mapper.MovieOrderMapper" >
-  <resultMap id="BaseResultMap" type="com.app.order.entity.MovieOrder" >
+  <resultMap id="BaseResultMap" type="com.app.order.entity.MovieOrderVo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
@@ -9,6 +9,10 @@
     <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
     <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
     <result column="num" property="num" jdbcType="DECIMAL" />
+
+    <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
+    <result column="SHOW_START" property="showStart" jdbcType="TIMESTAMP" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -88,4 +92,13 @@
 	      </trim>
 	order by id desc
   </select>
+
+    <select id="findOrderForIndex" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+            a.*, c.name, b.show_start, c.image
+        FROM movie_order a JOIN r_movie_part b ON a.r_movie_id = b.id JOIN movie c ON b.movie_id = c.id
+        WHERE a.created_by = #{username}
+        ORDER BY a.created_dt DESC
+        LIMIT 0,4
+    </select>
 </mapper>

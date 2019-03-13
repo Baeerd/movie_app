@@ -33,11 +33,11 @@
 
                     <form action="/system/login">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="用户名" >
+                            <input type="text" class="form-control" name="username" placeholder="用户名" value="admin">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="password"  placeholder="密码" >
+                            <input type="text" class="form-control" name="password"  placeholder="密码" value="123">
                         </div>
 
                         <div class="form-group">

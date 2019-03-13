@@ -8,4 +8,9 @@ import java.util.Map;
 
 public interface MovieOrderService extends BaseService<MovieOrder>{
 
+    /**
+     * 查询个人所有订单
+     * @return
+     */
+    public List<MovieOrder> findOrderForIndex();
 }

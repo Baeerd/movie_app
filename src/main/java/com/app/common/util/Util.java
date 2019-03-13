@@ -105,6 +105,32 @@ public class Util {
         return json==null?"":json.toString();
     }
 
+    /**
+     * 格式化时间，yyyy-MM-dd
+     * @param date
+     * @return
+     */
+    public static String formatDate(Date date) {
+        if(date == null) {
+            return "";
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
+
+    /**
+     * 格式化时间，yyyy-MM-dd HH:mm:ss
+     * @param date
+     * @return
+     */
+    public static String formatDateTime(Date date) {
+        if(date == null) {
+            return "";
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
+    }
+
     public static void main(String[] args) {
         DataConfig dataConfig = new DataConfig();
         dataConfig.setName("name");
