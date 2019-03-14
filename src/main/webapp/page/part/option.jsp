@@ -316,10 +316,7 @@
     <script>
 
         jQuery('#datepicker-multiple-date').datepicker({
-            format: "yyyy-mm-dd",
-            clearBtn: true,
-            multidate: true,
-            multidateSeparator: ","
+            format: "yyyy-mm-dd"
         });
     </script>
 
