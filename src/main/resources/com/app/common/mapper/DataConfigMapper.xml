@@ -22,7 +22,7 @@
       select ${displayName} as name, ${displayValue} as value
         from ${tableName}
       <trim prefix="WHERE" prefixOverrides="AND |OR ">
-          <if test="filterName != null" >
+          <if test="filterName != null and filterName != ''" >
               and ${filterName} = '${filterValue}'
           </if>
       </trim>

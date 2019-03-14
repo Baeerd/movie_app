@@ -7,8 +7,8 @@ $('#my_multi_select2').multiSelect({
 });
 
 $('#my_multi_select3').multiSelect({
-    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='电影名称...'>",
+    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='电影名称...'>",
     afterInit: function (ms) {
         var that = this,
             $selectableSearch = that.$selectableUl.prev(),

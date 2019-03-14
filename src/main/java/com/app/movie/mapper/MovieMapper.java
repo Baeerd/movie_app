@@ -1,5 +1,6 @@
 package com.app.movie.mapper;
 
+import com.app.movie.entity.MovieVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

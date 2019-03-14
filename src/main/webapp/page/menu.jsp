@@ -19,7 +19,7 @@
                     <li><a href="/page/movie/movieList.jsp"> 电影管理</a></li>
                     <li ><a href="ui-panels.html"> 影院管理</a></li>
                     <li><a href="ui-sweet-alert.html">座位设置</a></li>
-                    <li><a href="ui-progressbar.html">影院设置</a></li>
+                    <li><a href="/main/option">影院设置</a></li>
                     <li><a href="/order/orderList">订单查询</a></li>
                     <li><a href="/comment/commentList">评论管理</a></li>
                 </ul>
