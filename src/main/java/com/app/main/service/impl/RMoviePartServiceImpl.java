@@ -16,12 +16,10 @@ import com.app.main.entity.RMoviePart;
 import com.app.main.mapper.RMoviePartMapper;
 import com.app.main.service.RMoviePartService;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implements RMoviePartService {
@@ -42,12 +40,32 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
         return filterMovieList(movieMapper.find(null), partId);
     }
 
+    /**
+     *  逻辑：
+     *  查询影院电影场次配置表是否存在数据
+     *  如果不存在，添加（上架状态为上架）
+     *  如果存在，查看此次配置中是否要下架此场次，如果要下架，改上架状态，否则不操作
+     * @param dataMap
+     */
     @Override
     public void saveOption(Map<String, String> dataMap) {
-        // 先删除影院的对应关系
-        rMoviePartMapper.deleteByPartId(dataMap.get("partId"));
+        // 查询影院电影场次配置表是否存在数据
+        List<RMoviePart> moviePartList = getMoviePartList(dataMap.get("partId"));
+
         String[] movieIds = dataMap.get("movieId").split(",");
+        List<Long> Ids = moviesNotInData(moviePartList, movieIds, dataMap);
+        if(Ids != null && Ids.size() > 0) {
+            // 将数据库中不包含的电影置为下架
+            Map<String, Object> params = new HashMap<>();
+            params.put("ids", Ids);
+            params.put("isGrounding", "0");
+            rMoviePartMapper.updateIsGrounding(params);
+        }
+
         for (String movieId : movieIds) {
+            if(StringUtils.isEmpty(dataMap.get("movieId")) || StringUtils.isEmpty(dataMap.get("partId"))) {
+                return;
+            }
             RMoviePart rMoviePart = new RMoviePart();
             rMoviePart.setPartId(dataMap.get("partId"));
             rMoviePart.setPrice(dataMap.get("price"));
@@ -55,11 +73,74 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
             rMoviePart.setMovieId(movieId);
             rMoviePart.setCreatedDt(new Date());
             rMoviePart.setCreatedBy(LoginUtil.getUserName());
+            rMoviePart.setIsGrounding("1");// 已上架
             fillMoviePart(dataMap, rMoviePart);
 
-            rMoviePartMapper.insert(rMoviePart);
+            if(isExists(moviePartList, rMoviePart)) {
+                // 存在
+                Long id = 0L;
+                for (RMoviePart moviePart : moviePartList) {
+                    if(moviePart.equals(rMoviePart)) {
+                        id = moviePart.getId();
+                    }
+                }
+                rMoviePart.setId(id);
+                rMoviePartMapper.update(rMoviePart);
+            } else {
+                rMoviePartMapper.insert(rMoviePart);
+            }
+
         }
 
+    }
+
+    /**
+     * 获取数据库中不存在的movie id
+     * @param moviePartList
+     * @param movieIds
+     * @param dataMap
+     * @return
+     */
+    private List<Long> moviesNotInData(List<RMoviePart> moviePartList, String[] movieIds, Map<String, String> dataMap) {
+        String partId = dataMap.get("partId");
+        String showNo = dataMap.get("showNo");
+        Date startDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            startDate = format.parse(dataMap.get("startDate"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Long> moviesNotInData = new ArrayList<>();
+        List<String> movieIdsList = Arrays.asList(movieIds);
+        for (RMoviePart rMoviePart : moviePartList) {
+            if(!movieIdsList.contains(rMoviePart.getMovieId()) && partId.equals(rMoviePart.getPartId()) && showNo.equals(rMoviePart.getShowNo()) && startDate.equals(rMoviePart.getShowStart())) {
+                moviesNotInData.add(rMoviePart.getId());
+            }
+        }
+        return moviesNotInData;
+    }
+
+    /**
+     * 判断影院电影场次配置表是否存在数据
+     * @param moviePartList
+     * @param rMoviePart
+     * @return
+     */
+    private boolean isExists(List<RMoviePart> moviePartList, RMoviePart rMoviePart) {
+        return moviePartList.contains(rMoviePart);
+    }
+
+    /**
+     * 获取配置表map
+     * @param partId
+     * @return
+     */
+    private List<RMoviePart> getMoviePartList(String partId) {
+        Map<String, String> param = new HashMap<>();
+        param.put("partId", partId);
+        List<RMoviePart> rMovieParts = rMoviePartMapper.find(param);
+        return rMovieParts;
     }
 
     /**
@@ -68,13 +149,12 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
      * @param rMoviePart
      */
     private void fillMoviePart(Map<String, String> dataMap, RMoviePart rMoviePart) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String showNo = dataMap.get("showNo");
         String startDate = dataMap.get("startDate");
-        String[] times = Constant.SHOW_NO_MAP.get(showNo);
         try {
-            rMoviePart.setShowStart(format.parse(startDate + " " + times[0]));
-            rMoviePart.setShowEnd(format.parse(startDate + " " + times[1]));
+            rMoviePart.setShowStart(format.parse(startDate));
+            rMoviePart.setShowEnd(format.parse(startDate));
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

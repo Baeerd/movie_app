@@ -18,4 +18,6 @@ public interface RMoviePartMapper extends BaseMapper<RMoviePart>{
     List<Long> findPartIdsByMovieId(@Param("movieId") Long movieId);
 
     void deleteByPartId(@Param("partId") String partId);
+
+    void updateIsGrounding(Map<String, Object> params);
 }

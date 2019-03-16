@@ -1,5 +1,6 @@
 package com.app.movie.controller;
 
+import com.app.common.entity.PageModel;
 import com.app.common.exception.MessageException;
 import com.app.common.util.BeanUtils;
 import com.app.common.util.Util;
@@ -16,6 +17,7 @@ import com.app.movie.entity.Movie;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -64,4 +66,20 @@ public class MovieController extends BaseController<Movie>{
         }
         return "goodsList";
     }
+
+    /**
+     * 跳转到电影浏览页面
+     * @return
+     */
+    @RequestMapping("/movieListPanel")
+    public ModelAndView movieListPanel(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("/movie/movieListPanel");
+        String jsonFromRequest = super.getJsonFromRequest(request);
+        Map<String, String> param = Util.jsonToMap(jsonFromRequest);
+        param.put("pageSize", "6");// 每页6个
+        PageModel<Movie> page = movieService.findByPage(param);
+        modelAndView.addObject("page", page);
+        return modelAndView;
+    }
+
 }

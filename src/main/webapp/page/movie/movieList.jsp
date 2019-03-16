@@ -75,7 +75,6 @@
                                     <th><input type='checkbox' name='checkBox1' value='" + date + "'/><span class='lbl'></span></th>
                                     <th>序号</th>
                                     <th>创建人</th>
-                                    <th>是否上架</th>
                                     <th>电影名称</th>
                                     <th>电影简介</th>
                                     <th>图片地址</th>
@@ -133,7 +132,6 @@
                 },
                 {"data": "id","bSortable": false},
                 {"data": "createdBy","bSortable": true},
-                {"data": "isGrounding","bSortable": false},
                 {"data": "name","bSortable": false},
                 {"data": "remark","bSortable": false},
                 {"data": "image","bSortable": false}

@@ -5,7 +5,6 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
     <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
-    <result column="is_grounding" property="isGrounding" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="image" property="image" jdbcType="VARCHAR" />
@@ -16,16 +15,16 @@
 
 
   <sql id="Base_Column_List" >
-    id,created_dt,created_by,is_grounding,name,remark,image
+    id,created_dt,created_by,name,remark,image
   </sql>
 
 
   <insert id="insert" parameterType="com.app.movie.entity.Movie" >
     insert into movie (created_dt,created_by,
-      is_grounding,name,remark,
+      name,remark,
       image)
     values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
-      #{isGrounding,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},
       #{image,jdbcType=VARCHAR})
   </insert>
 
@@ -40,9 +39,6 @@
           </if>
           <if test="createdBy != null" >
               created_by = #{createdBy,jdbcType=VARCHAR},
-          </if>
-          <if test="isGrounding != null" >
-              is_grounding = #{isGrounding,jdbcType=VARCHAR},
           </if>
           <if test="name != null" >
               name = #{name,jdbcType=VARCHAR},
@@ -76,9 +72,6 @@
 		      <if test="createdBy != null" >
 		        and created_by = #{createdBy,jdbcType=VARCHAR}
 		      </if>
-		      <if test="isGrounding != null" >
-		        and is_grounding = #{isGrounding,jdbcType=VARCHAR}
-		      </if>
 		      <if test="name != null" >
 		        and name like '%${name}%'
 		      </if>
@@ -91,5 +84,31 @@
 	      </trim>
 	order by id desc
   </select>
+
+    <select id="findCounts" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(0)
+        from movie
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null" >
+                and name like '%${name}%'
+            </if>
+            <if test="remark != null" >
+                and remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="image != null" >
+                and image = #{image,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
 
 </mapper>

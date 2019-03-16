@@ -27,8 +27,8 @@
 
             <li class="menu-list"> <a href="#"><i class="icon-grid"></i> <span>电影浏览</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="table-static.html"> 电影浏览</a></li>
-                    <li><a href="table-responsive.html">影院浏览</a></li>
+                    <li><a href="/movie/movieListPanel"> 电影浏览</a></li>
+                    <li><a href="/moviePart/partListPanel">影院浏览</a></li>
                 </ul>
             </li>
 

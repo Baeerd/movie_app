@@ -64,7 +64,7 @@
                                      <a class="search-link"   href="javascript:void(0);">${comment.createdDtView}</a>
 
                                      <div align="right">
-                                         <button type="button" class="btn btn-danger round">
+                                         <button type="button" class="btn btn-danger round" onclick="deleteComment(${comment.id});">
                                              <span class="btn-label"><i class="fa fa-times"></i></span>删除
                                          </button>
                                      </div>
@@ -86,14 +86,12 @@
 
 
         <!--Start  Footer -->
-        <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>	
+        <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.</footer>
          <!--End footer -->
 
        </div>
       <!--End main content -->
     
-
-
     <!--Begin core plugin -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
@@ -101,8 +99,20 @@
     <script  src="/assets/js/jquery.slimscroll.js "></script>
     <script src="/assets/js/jquery.nicescroll.js"></script>
     <script src="/assets/js/functions.js"></script>
+
+    <script src="/assets/plugins/sweetalert/sweet-alert.js"></script>
+    <script src="/assets/pages/jquery.sweet-alert.custom.js"></script>
     <!-- End core plugin -->
-    
+    <script src="/js/plugin.js"></script>
+
+    <script type="text/javascript">
+        function deleteComment(id) {
+            $.post("/comment/deleteJson",{"id": id}, function(data) {
+                alert(data.data);
+                window.location.reload();
+            });
+        }
+    </script>
 
 </body>
 

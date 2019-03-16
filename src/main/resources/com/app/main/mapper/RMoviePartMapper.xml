@@ -11,6 +11,7 @@
     <result column="show_start" property="showStart" jdbcType="TIMESTAMP" />
     <result column="show_end" property="showEnd" jdbcType="TIMESTAMP" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="isGrounding" property="IS_GROUNDING" jdbcType="VARCHAR" />
 
     <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
     <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
@@ -20,17 +21,18 @@
 
   <sql id="Base_Column_List" >
     id,created_dt,created_by,part_id,movie_id,show_no,show_start,show_end,
-    price
+    price,is_grounding
   </sql>
 
 
   <insert id="insert" parameterType="com.app.main.entity.RMoviePart" >
     insert into r_movie_part (created_dt,created_by,
       part_id,movie_id,show_no,
-      show_start,show_end,price)
+      show_start,show_end,price,is_grounding)
     values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
       #{partId,jdbcType=BIGINT},#{movieId,jdbcType=BIGINT},#{showNo,jdbcType=VARCHAR},
-      #{showStart,jdbcType=TIMESTAMP},#{showEnd,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL})
+      #{showStart,jdbcType=TIMESTAMP},#{showEnd,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL},
+      #{isGrounding,jdbcType=VARCHAR})
   </insert>
 
   <update id="update" parameterType="com.app.main.entity.RMoviePart" >
@@ -62,6 +64,9 @@
           </if>
           <if test="price != null" >
               price = #{price,jdbcType=DECIMAL},
+          </if>
+          <if test="isGrounding != null" >
+              IS_GROUNDING= #{isGrounding ,jdbcType=VARCHAR},
           </if>
       </set>
   		where id = #{id,jdbcType=BIGINT}
@@ -104,6 +109,9 @@
 		      <if test="price != null" >
 		        and price = #{price,jdbcType=DECIMAL}
 		      </if>
+            <if test="isGrounding != null" >
+                and IS_GROUNDING = #{isGrounding,jdbcType=VARCHAR}
+            </if>
 	      </trim>
 	order by id desc
   </select>
@@ -140,6 +148,9 @@
             <if test="price != null" >
                 and a.price = #{price,jdbcType=DECIMAL}
             </if>
+            <if test="isGrounding != null" >
+                and a.IS_GROUNDING = #{isGrounding,jdbcType=VARCHAR}
+            </if>
         </trim>
         order by a.id desc
     </select>
@@ -151,4 +162,11 @@
     <delete id="deleteByPartId" parameterType="java.lang.String">
         delete from r_movie_part where part_id = #{partId}
     </delete>
+
+    <update id="updateIsGrounding" parameterType="java.util.Map">
+        update r_movie_part set IS_GROUNDING = #{isGrounding} where id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

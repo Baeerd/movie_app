@@ -105,14 +105,11 @@
 			    </div>
         <!-- End Wrapper-->
 
-
         <!--Start  Footer -->
-        <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>	
+        <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.</footer>
          <!--End footer -->
 
        </div>
-      <!--End main content -->
-    
 
 
     <!--Begin core plugin -->

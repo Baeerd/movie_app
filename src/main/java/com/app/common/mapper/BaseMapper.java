@@ -11,4 +11,6 @@ public interface BaseMapper<T> {
     void update(T entity);
 
     void delete(T entity);
+
+    Integer findCounts(Map<String, String> params);
 }

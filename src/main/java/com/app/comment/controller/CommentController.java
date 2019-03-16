@@ -11,13 +11,14 @@ import org.springframework.stereotype.Controller;
 
 import com.app.common.controller.BaseController;
 import com.app.comment.entity.Comment;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @Scope("prototype")
 @RequestMapping("/comment")
 public class CommentController extends BaseController<Comment>{

@@ -7,21 +7,11 @@ import java.util.Date;
 
 public class Movie extends AbstractEntity{
 
-    private String isGrounding;
-
     private String name;
 
     private String remark;
 
     private String image;
-
-    public String getIsGrounding() {
-        return isGrounding;
-    }
-
-    public void setIsGrounding(String isGrounding) {
-        this.isGrounding = isGrounding;
-    }
 
     public String getName() {
         return name;
