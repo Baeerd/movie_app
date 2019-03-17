@@ -105,7 +105,7 @@
                     <mainClass>com.app.AppApplication</mainClass>
                 </configuration>
             </plugin>
-        </plugins>
+        </plugins> 
 
         <resources>
             <resource>
