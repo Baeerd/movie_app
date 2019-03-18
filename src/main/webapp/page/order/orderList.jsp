@@ -84,7 +84,7 @@
                                      </a>
                                      <div align="right">
                                          <button type="button" class="btn btn-info round">
-                                             <span class="btn-label"><i class="fa fa-exclamation"></i></span>评论
+                                             <span class="btn-label"><i class="fa fa-exclamation"></i></span>查看详细信息
                                          </button>
                                          <button type="button" class="btn btn-danger round">
                                              <span class="btn-label"><i class="fa fa-times"></i></span>退款

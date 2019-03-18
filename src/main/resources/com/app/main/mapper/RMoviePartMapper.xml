@@ -18,6 +18,15 @@
 
   </resultMap>
 
+    <resultMap id="PartResultMap" type="com.app.part.entity.MoviePart" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="part_name" property="partName" jdbcType="VARCHAR" />
+        <result column="part_remark" property="partRemark" jdbcType="VARCHAR" />
+        <result column="image" property="image" jdbcType="VARCHAR" />
+    </resultMap>
+
 
   <sql id="Base_Column_List" >
     id,created_dt,created_by,part_id,movie_id,show_no,show_start,show_end,
@@ -26,6 +35,9 @@
 
 
   <insert id="insert" parameterType="com.app.main.entity.RMoviePart" >
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+          select LAST_INSERT_ID()
+      </selectKey>
     insert into r_movie_part (created_dt,created_by,
       part_id,movie_id,show_no,
       show_start,show_end,price,is_grounding)
@@ -169,4 +181,8 @@
             #{id}
         </foreach>
     </update>
+
+    <select id="findPartByMovieId" parameterType="java.lang.String" resultMap="PartResultMap">
+        SELECT DISTINCT b.* FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId}
+    </select>
 </mapper>

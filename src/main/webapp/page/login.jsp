@@ -32,34 +32,24 @@
                     <h2 class="header-title text-center">影视信息系统</h2>
 
                     <form action="/system/login">
-                        <div class="form-group">
+                        <div class="login-group">
                             <input type="text" class="form-control" name="username" placeholder="用户名" value="admin">
                         </div>
+                        <br/><br/><br/>
 
-                        <div class="form-group">
+                        <div class="login-group">
                             <input type="text" class="form-control" name="password"  placeholder="密码" value="123">
                         </div>
 
-                        <div class="form-group">
-                            <div class="pull-left">
-                                <div class="checkbox primary">
-                                    <input  id="checkbox-2" type="checkbox">
-                                    <label for="checkbox-2">记住密码</label>
-                                </div>
-                            </div>
+                        <br/><br/><br/>
 
-                            <div class="pull-right">
-                                <a href="reset-password.html" class="a-link">
-                                    <i class="fa fa-unlock-alt"></i> 忘记密码?
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
+                        <div class="login-group">
                             <input type="submit" value="登录" class="btn btn-primary btn-block" >
                         </div>
 
-                        <div class="form-group text-center">
+                        <br/><br/><br/>
+
+                        <div class="login-group text-center">
                             没有账号?  <a href="registration.html">点击注册 </a>
                         </div>
 

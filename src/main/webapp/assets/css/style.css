@@ -2483,6 +2483,10 @@ ul.doughnut-legend li span {
 	float:left;
 	width:33%;
 }
+.login-group{
+	float:left;
+	width:100%;
+}
 
 .bootstrap-tagsinput input {
     border: 0;

@@ -37,6 +37,9 @@
             <div class="clearfix"></div>
         </div>
         <!--End Page Title-->
+
+        <button type="button" class="btn btn-purple round" onclick="showOrder();">购买</button>
+
         <!-- 分页 -->
         <%@include file="../pageInfo.jsp"%>
 
@@ -47,7 +50,7 @@
                 <c:forEach items="${page.list}" var="movie">
 
                     <div class="col-md-4">
-                        <div class="panel panel-color  panel-info">
+                        <div class="panel panel-color  panel-info" onclick="selectPanel(this, ${movie.id});"> <!-- panel-purple -->
                             <div class="panel-heading">
                                 <h3 class="panel-title">${movie.name}</h3>
                             </div>
@@ -88,9 +91,45 @@
 <script src="/assets/js/jquery.nicescroll.js"></script>
 <script src="/assets/js/functions.js"></script>
 
+<script src="/assets/plugins/sweetalert/sweet-alert.js"></script>
+<script src="/assets/pages/jquery.sweet-alert.custom.js"></script>
+
 <!-- End core plugin -->
 <script src="/js/plugin.js"></script>
 
+<script type="text/javascript">
+    var selectMovieId;
+    var lastElement;
+
+    /**
+     * 列表选择事件
+     * @param e
+     * @param id
+     */
+    function selectPanel(e, id) {
+        selectMovieId = id;
+        // 改变样式
+        if(lastElement) {
+           $(lastElement).removeClass("panel-purple");
+           $(lastElement).addClass("panel-info");
+        }
+        $(e).removeClass("panel-info");
+        $(e).addClass("panel-purple");
+        lastElement = e;
+    }
+
+    /**
+     * 下订单
+     */
+    function showOrder() {
+        if(!selectMovieId) {
+            swal("请选择电影下单!");
+            return false;
+        }
+        // 跳转到下订单页面
+        window.location = "/order/addOrder?movieId="+selectMovieId;
+    }
+</script>
 
 </body>
 

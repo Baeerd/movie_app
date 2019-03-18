@@ -9,6 +9,9 @@ public class Place extends AbstractEntity{
 
     private String placeNo;
 
+    /**
+     * 是否使用： 1-已使用 0-未使用
+     */
     private String isUse;
 
     private String rMovieId;

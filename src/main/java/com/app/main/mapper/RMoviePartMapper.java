@@ -1,6 +1,7 @@
 package com.app.main.mapper;
 
 import com.app.main.entity.MainDataVo;
+import com.app.part.entity.MoviePart;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.app.common.mapper.BaseMapper;
@@ -20,4 +21,6 @@ public interface RMoviePartMapper extends BaseMapper<RMoviePart>{
     void deleteByPartId(@Param("partId") String partId);
 
     void updateIsGrounding(Map<String, Object> params);
+
+    List<MoviePart> findPartByMovieId(@Param("movieId") String movieId);
 }

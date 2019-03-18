@@ -7,6 +7,9 @@ import com.app.main.entity.MainDataVo;
 import com.app.movie.entity.Movie;
 import com.app.movie.entity.MovieVo;
 import com.app.movie.mapper.MovieMapper;
+import com.app.part.entity.MoviePart;
+import com.app.place.entity.Place;
+import com.app.place.mapper.PlaceMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,9 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
 
     @Autowired
     private MovieMapper movieMapper;
+
+    @Autowired
+    private PlaceMapper placeMapper;
 
     @Override
     public List<MainDataVo> getMovieData(Map<String, String> param) {
@@ -87,11 +93,26 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
                 rMoviePart.setId(id);
                 rMoviePartMapper.update(rMoviePart);
             } else {
+                // 添加影院电影场次关系表时，同时添加座位表信息（定位每个场次的电影都是50个座位）
                 rMoviePartMapper.insert(rMoviePart);
+                for(int i=1; i<=50; i++) {
+                    Place place = new Place();
+                    place.setCreatedBy(LoginUtil.getUserName());
+                    place.setCreatedDt(new Date());
+                    place.setIsUse("0");
+                    place.setPlaceNo(i+"");
+                    place.setRMovieId(rMoviePart.getId().toString());
+                    placeMapper.insert(place);
+                }
             }
 
         }
 
+    }
+
+    @Override
+    public List<MoviePart> findPartByMovieId(String movieId) {
+        return rMoviePartMapper.findPartByMovieId(movieId);
     }
 
     /**
