@@ -28,8 +28,8 @@
                     <div class="logo">
                         <img src="/assets/images/logo-dark.png"  alt="logo"/>
                     </div>
-
-                    <h2 class="header-title text-center">影视信息系统</h2>
+                    <br/><br/>
+                    <h2 class="header2-title text-center">影视信息系统</h2>
 
                     <form action="/system/login">
                         <div class="login-group">
