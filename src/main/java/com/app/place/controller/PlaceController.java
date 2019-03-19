@@ -6,11 +6,12 @@ import org.springframework.stereotype.Controller;
 
 import com.app.common.controller.BaseController;
 import com.app.place.entity.Place;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @Scope("prototype")
 @RequestMapping("/place")
 public class PlaceController extends BaseController<Place>{

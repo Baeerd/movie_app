@@ -22,5 +22,5 @@ public interface RMoviePartMapper extends BaseMapper<RMoviePart>{
 
     void updateIsGrounding(Map<String, Object> params);
 
-    List<MoviePart> findPartByMovieId(@Param("movieId") String movieId);
+    List<MainDataVo> findPartByMovieId(@Param("movieId") String movieId);
 }

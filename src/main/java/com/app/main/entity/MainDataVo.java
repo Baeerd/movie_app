@@ -10,6 +10,8 @@ public class MainDataVo extends RMoviePart{
 
     private String movieName;
 
+    private String showTime;
+
     public String getPartName() {
         return partName;
     }
@@ -24,5 +26,13 @@ public class MainDataVo extends RMoviePart{
 
     public void setMovieName(String movieName) {
         this.movieName = movieName;
+    }
+
+    public String getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(String showTime) {
+        this.showTime = showTime;
     }
 }

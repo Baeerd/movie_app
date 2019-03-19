@@ -36,5 +36,5 @@ public interface RMoviePartService extends BaseService<RMoviePart>{
      * @param movieId
      * @return
      */
-    List<MoviePart> findPartByMovieId(String movieId);
+    List<MainDataVo> findPartByMovieId(String movieId);
 }

@@ -4,6 +4,7 @@ import com.app.comment.entity.Comment;
 import com.app.common.entity.PageModel;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
+import com.app.main.entity.MainDataVo;
 import com.app.main.service.RMoviePartService;
 import com.app.movie.entity.Movie;
 import com.app.movie.service.MovieService;
@@ -61,8 +62,8 @@ public class MovieOrderController extends BaseController<MovieOrder>{
         ModelAndView modelAndView = new ModelAndView("/order/addOrder");
         String paramJson = super.getJsonFromRequest(request);
         Map<String, String> param = Util.jsonToMap(paramJson);
-        // 获取拥有电影的所有影院
-        List<MoviePart> partList = rMoviePartService.findPartByMovieId(param.get("movieId"));
+        // 获取拥有电影的所有影院，包含场次信息
+        List<MainDataVo> partList = rMoviePartService.findPartByMovieId(param.get("movieId"));
         modelAndView.addObject("partList", partList);
 
         // 获取电影详细信息

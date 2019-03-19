@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
-public class RMoviePart extends AbstractEntity implements Comparable<RMoviePart>{
+public class RMoviePart extends AbstractEntity {
 
     private String partId;
 
@@ -93,22 +93,5 @@ public class RMoviePart extends AbstractEntity implements Comparable<RMoviePart>
         Date showStart = that.getShowStart();
         String showNo = that.getShowNo();
         return movieId.equals(this.movieId) && partId.equals(this.partId) && showStart.equals(this.showStart) && showNo.equals(this.showNo);
-    }
-
-    /**
-     * 影视号、电影号、场次时间都相同才相同
-     * @param rMoviePart
-     * @return
-     */
-    @Override
-    public int compareTo(RMoviePart rMoviePart) {
-        String movieId = rMoviePart.getMovieId();
-        String partId = rMoviePart.getPartId();
-        String showNo = rMoviePart.getShowNo();
-        Date showStart = rMoviePart.getShowStart();
-        if(movieId.equals(this.movieId) && partId.equals(this.partId) && showStart.equals(this.showStart) && showNo.equals(this.showNo)) {
-            return 0;
-        }
-        return -1;
     }
 }

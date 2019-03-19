@@ -16,6 +16,17 @@ String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {
 }
 
 /**
+ * 数组删除元素
+ * @param val
+ */
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
+
+/**
  * 判断是否是某个字符串结尾
  * @param endStr
  * @returns {boolean}

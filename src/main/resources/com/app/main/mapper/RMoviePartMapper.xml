@@ -15,6 +15,7 @@
 
     <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
     <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
+    <result column="SHOW_TIME" property="showTime" jdbcType="VARCHAR" />
 
   </resultMap>
 
@@ -182,7 +183,7 @@
         </foreach>
     </update>
 
-    <select id="findPartByMovieId" parameterType="java.lang.String" resultMap="PartResultMap">
-        SELECT DISTINCT b.* FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId}
+    <select id="findPartByMovieId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT a.id, a.show_start, a.show_no, b.part_name FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId} ORDER BY b.part_name, a.show_start, a.show_no
     </select>
 </mapper>

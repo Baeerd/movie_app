@@ -3,6 +3,7 @@ package com.app.main.service.impl;
 import com.app.common.entity.Constant;
 import com.app.common.util.BeanUtils;
 import com.app.common.util.LoginUtil;
+import com.app.common.util.Util;
 import com.app.main.entity.MainDataVo;
 import com.app.movie.entity.Movie;
 import com.app.movie.entity.MovieVo;
@@ -111,8 +112,23 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
     }
 
     @Override
-    public List<MoviePart> findPartByMovieId(String movieId) {
-        return rMoviePartMapper.findPartByMovieId(movieId);
+    public List<MainDataVo> findPartByMovieId(String movieId) {
+        List<MainDataVo> mainDataList = rMoviePartMapper.findPartByMovieId(movieId);
+        for (MainDataVo mainDataVo : mainDataList) {
+            filtMainData(mainDataVo);
+        }
+        return mainDataList;
+    }
+
+    /**
+     * 添加场次显示时间
+     * @param mainDataVo
+     */
+    private void filtMainData(MainDataVo mainDataVo) {
+        Date showStart = mainDataVo.getShowStart();
+        String showNo = mainDataVo.getShowNo();
+        String[] times = Constant.SHOW_NO_MAP.get(showNo);
+        mainDataVo.setShowTime(Util.formatDate(showStart) + " " + times[0]);
     }
 
     /**

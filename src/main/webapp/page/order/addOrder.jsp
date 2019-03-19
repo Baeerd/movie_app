@@ -54,10 +54,10 @@
                                          <c:forEach items="${partList}" var="part">
                                              <c:choose>
                                                  <c:when test="${partId != null and partId == part.id}">
-                                                     <option value="${part.id}" selected>${part.partName}</option>
+                                                     <option value="${part.id}" selected>${part.partName}(${part.showTime})</option>
                                                  </c:when>
                                                  <c:otherwise>
-                                                     <option value="${part.id}">${part.partName}</option>
+                                                     <option value="${part.id}">${part.partName}(${part.showTime})</option>
                                                  </c:otherwise>
                                              </c:choose>
                                          </c:forEach>
@@ -82,120 +82,13 @@
                                  </div>
                              </div>
 
-                             <div class="col-md-4">
-                                 <div class="panel panel-color  panel-info" onclick="selectPanel(this, ${movie.id});">
-                                     <div class="panel-heading">
-                                         <h3 class="panel-title">${movie.name}</h3>
-                                     </div>
-                                     <div class="panel-body" align="center">
-                                         <img src="${movie.image}" width="200" height="200">
-                                         <p/>
-                                         <p>
-                                             ${movie.remark}
-                                         </p>
-                                     </div>
-                                 </div>
-                             </div>
 
+                             <table border="1" width="800px" height="400px" id="placeSelectList"></table>
 
-                             <table border="1" width="300px" height="300px">
-                                <tr align="center" width="10px" height="10px">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr align="center">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                            </table>
+                             <button type="button" class="btn btn-info round" onclick="submitOrder();">
+                                 <span class="btn-label"><i class="fa fa-exclamation"></i></span>付款
+                             </button>
 
-                             <c:forEach items="${page.list}" var="order">
-                                 <div class="search-item">
-                                     <h3><a href="javascript:void(0);"><img src="${order.image}" width="50" height="50"/>&nbsp;&nbsp;${order.movieName}&nbsp;&nbsp;（影院：${order.partName}）</a></h3>
-                                     <a class="search-link" href="javascript:void(0);">
-                                         <c:choose>
-                                             <c:when test="${order.state == '1'}">
-                                                 <small>
-                                                     <span style="color: #0e90d2; ">已支付</span>
-                                                 </small>
-                                             </c:when>
-                                             <c:when test="${order.state == '2'}">
-                                                 <small>
-                                                     <span style="color: black; ">已退款</span>
-                                                 </small>
-                                             </c:when>
-                                             <c:otherwise>
-                                                 <small>
-                                                     <span style="color: red; ">未支付</span>
-                                                 </small>
-                                             </c:otherwise>
-                                         </c:choose>
-                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                         上映时间：${order.showStartView}
-                                     </a>
-                                     <div align="right">
-                                         <button type="button" class="btn btn-info round">
-                                             <span class="btn-label"><i class="fa fa-exclamation"></i></span>查看详细信息
-                                         </button>
-                                         <button type="button" class="btn btn-danger round">
-                                             <span class="btn-label"><i class="fa fa-times"></i></span>退款
-                                         </button>
-                                     </div>
-                                     <p></p>
-                                 </div>
-                             </c:forEach>
 
                          </div>
                      </div>
@@ -220,8 +113,74 @@
     <script  src="/assets/js/jquery.slimscroll.js "></script>
     <script src="/assets/js/jquery.nicescroll.js"></script>
     <script src="/assets/js/functions.js"></script>
+
+    <script src="/assets/plugins/sweetalert/sweet-alert.js"></script>
+    <script src="/assets/pages/jquery.sweet-alert.custom.js"></script>
+
     <!-- End core plugin -->
-    
+    <script src="/js/plugin.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * 影院选择
+         */
+        function partChange(e) {
+            $.post("/place/findByParam", {"rMovieId" : e.value}, function(data) {
+                var placeDataList = data.data;
+                var tr1 = '<tr align="center" width="600px">';
+                var tr2 = '</tr>';
+                var index = 0;
+                var content = tr1;
+                for(var index=1; index<=placeDataList.length; index++) {
+                    if(placeDataList[index-1].isUse == '1') {
+                        // 已占用
+                        content += '<td style="background: red">'+placeDataList[index-1].placeNo+'</td>';
+                    } else {
+                        // 未占用
+                        content += '<td onclick="selectPlace(this, '+placeDataList[index-1].id+');">'+placeDataList[index-1].placeNo+'</td>';
+                    }
+                    if(index == 50) {
+                        content += tr2;
+                    } else if(index % 10 == 0) {
+                        content += tr2 + tr1;
+                    }
+                }
+                $("#placeSelectList").html(content);
+            });
+        }
+
+
+        var selectIds = [];
+        /**
+         * 座位选择
+         */
+        function selectPlace(e, id) {
+            console.log(selectIds);
+            if(selectIds.indexOf(id)!=-1) {
+                $(e).css("background", "white");
+                selectIds.remove(id);
+            } else {
+                $(e).css("background", "green");
+                selectIds.push(id);
+            }
+        }
+
+        /**
+         * 付款
+         */
+        function submitOrder() {
+            if(!$("#partIdSelect").val()) {
+                swal("请选择影院场次!");
+                return false;
+            }
+            if(selectIds.length == 0) {
+                swal("请选择座位!");
+                return false;
+            }
+            swal("付款成功!");
+        }
+    </script>
 
 </body>
 

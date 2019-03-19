@@ -77,6 +77,6 @@
 		        and r_movie_id = #{rMovieId,jdbcType=BIGINT}
 		      </if>
 	      </trim>
-	order by id desc
+	order by id
   </select>
 </mapper>
