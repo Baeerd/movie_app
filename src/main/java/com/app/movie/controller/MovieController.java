@@ -3,6 +3,7 @@ package com.app.movie.controller;
 import com.app.common.entity.PageModel;
 import com.app.common.exception.MessageException;
 import com.app.common.util.BeanUtils;
+import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
 import com.app.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,20 +34,20 @@ public class MovieController extends BaseController<Movie>{
     @Autowired
     private MovieService movieService;
 
+
     /**
      * 添加或更新电影数据
      * @param request
      * @param file
-     * @param model
      * @return
      */
     @PostMapping("/upload")
-    public String uplaod(HttpServletRequest request, @RequestParam("file") MultipartFile file, Model model) {
+    public ModelAndView uplaod(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         try {
             Movie movie = new Movie();
             BeanUtils.populate(request, movie);//前台传过来的参数映射成实体用于更新或新增至数据库
             // 设置文件名(模块名+时间)
-            String fileName = "movie" + Util.getCurrentTime() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);;
+            String fileName = "movie" + Util.getCurrentTime() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
             String imageUrl = "/image/movie/" + fileName;
             // 设置文件路径
             String destFileName = request.getSession().getServletContext().getRealPath("") + imageUrl;
@@ -58,13 +60,14 @@ public class MovieController extends BaseController<Movie>{
             if(movie.getId() != null) {
                 movieService.update(movie);
             } else {
+                movie.setCreatedBy(LoginUtil.getUserName());
                 movieService.insert(movie);
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new MessageException("上传失败," + e.getMessage());
         }
-        return "goodsList";
+        return this.movieListPanel(null);
     }
 
     /**
@@ -74,11 +77,26 @@ public class MovieController extends BaseController<Movie>{
     @RequestMapping("/movieListPanel")
     public ModelAndView movieListPanel(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/movie/movieListPanel");
-        String jsonFromRequest = super.getJsonFromRequest(request);
-        Map<String, String> param = Util.jsonToMap(jsonFromRequest);
+
+        Map<String, String> param =  new HashMap<>();
+        if(null!=request){
+            String jsonFromRequest = super.getJsonFromRequest(request);
+            param = Util.jsonToMap(jsonFromRequest);
+        }
         param.put("pageSize", "6");// 每页6个
         PageModel<Movie> page = movieService.findByPage(param);
         modelAndView.addObject("page", page);
+        modelAndView.addObject("moiveName", param.get("name"));
+        return modelAndView;
+    }
+
+
+    /**
+     * 跳转movie新增页面
+     */
+    @RequestMapping("/movieAdd")
+    public ModelAndView moiveAdd(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("/movie/movieAdd");
         return modelAndView;
     }
 

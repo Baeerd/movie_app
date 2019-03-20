@@ -73,7 +73,7 @@
                                          <h3 class="panel-title">${movie.name}</h3>
                                      </div>
                                      <div class="panel-body" align="center">
-                                         <img src="${movie.image}" width="200" height="200">
+                                         <img src="${movie.image}" width="300" height="200">
                                          <p/>
                                          <p>
                                              ${movie.remark}
@@ -88,6 +88,7 @@
                              <button type="button" class="btn btn-info round" onclick="submitOrder();">
                                  <span class="btn-label"><i class="fa fa-exclamation"></i></span>付款
                              </button>
+                             <button type="button" class="btn btn-warning round" onclick="javascript:history.go(-1)">返回</button>
 
 
                          </div>

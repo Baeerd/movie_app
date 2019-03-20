@@ -63,7 +63,7 @@
                     <h2 class="header-title"> 影院设置</h2>
                        <form action="#" class="form-horizontal " id="optionForm">
 
-                            <div class="form-group">
+                            <div class="login-group">
                                  <label class="col-sm-3 control-label">选择影院</label>
                                  <div class="col-sm-5">
                                       <select id="partIdSelect" name="partId" onchange="partChange(this);" class="form-control m-b-15" >
@@ -80,7 +80,7 @@
                                  </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="login-group">
                                 <label class="control-label col-md-3">电影名称</label>
                                 <div class="col-md-9">
                                     <select name="movieId" class="multi-select" multiple="" id="my_multi_select3">
@@ -97,7 +97,7 @@
                             </div>
 
                            <div class="col-md-8">
-                               <div class="form-group">
+                               <div class="login-group">
                                    <label class="control-label col-md-4">选择场次时间</label>
                                    <div class="col-md-8">
                                        <div class="input-group">
@@ -108,7 +108,7 @@
                                </div>
                            </div>
 
-                           <div class="form-group">
+                           <div class="login-group">
                                <label class="col-sm-3 control-label">选择场次号</label>
                                <div class="col-sm-5">
                                    <select name="showNo" class="form-control m-b-15 initSelect" typeId="show_no">
@@ -117,7 +117,7 @@
                                </div>
                            </div>
 
-                           <div class="form-group">
+                           <div class="login-group">
                                <label class="col-sm-3 control-label">影片价格</label>
                                <div class="col-sm-5">
                                    <input name="price" class="form-control m-b-15" type="text" />

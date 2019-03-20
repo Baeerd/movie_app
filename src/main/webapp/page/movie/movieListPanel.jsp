@@ -38,7 +38,62 @@
         </div>
         <!--End Page Title-->
 
-        <button type="button" class="btn btn-purple round" onclick="showOrder();">购买</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+
+                    <form id="queryForm" class="form-horizontal" method = 'post'  action = '/movie/movieListPanel'>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">名称</label>
+                            <div class="col-md-10">
+                                <input id="name" name="name" value="${moiveName}" class="form-control" placeholder="支持模糊查询" type="text">
+                            </div>
+                        </div>
+
+                        <%--<div class="form-group">
+                            <label class="col-md-2 control-label">Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control" value="password" type="password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Disabled</label>
+                            <div class="col-md-10">
+                                <input class="form-control" disabled="" value="Disabled value" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Input Select</label>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>--%>
+
+                        <!--       按钮开始       -->
+
+                        <button type="submit" class="btn btn-success round">查询</button>
+
+                        <button type="button" class="btn btn-warning round" onclick="formReset()">重置</button>
+
+                        <button type="button" class="btn btn-info round" onclick="showMoiveAdd()">新增</button>
+
+                        <button type="button" class="btn btn-danger round">删除</button>
+
+                        <button type="button" class="btn btn-purple round" onclick="showOrder();">购买</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- 分页 -->
         <%@include file="../pageInfo.jsp"%>
@@ -55,7 +110,7 @@
                                 <h3 class="panel-title">${movie.name}</h3>
                             </div>
                             <div class="panel-body" align="center">
-                                <img src="${movie.image}" width="200" height="200">
+                                <img src="${movie.image}" width="300" height="200">
                                 <p/>
                                 <p>
                                     ${movie.remark}
@@ -118,6 +173,8 @@
         lastElement = e;
     }
 
+
+
     /**
      * 下订单
      */
@@ -129,6 +186,24 @@
         // 跳转到下订单页面
         window.location = "/order/addOrder?movieId="+selectMovieId;
     }
+
+
+    /**
+     * 重置
+     */
+    function formReset()
+    {
+        document.getElementById("queryForm").reset();
+    }
+
+    /**
+     *页面跳转新增movie
+     */
+    function showMoiveAdd()
+    {
+        window.location = "/movie/movieAdd";
+    }
+
 </script>
 
 </body>
