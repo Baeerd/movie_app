@@ -100,4 +100,16 @@ public class MovieController extends BaseController<Movie>{
         return modelAndView;
     }
 
+    /**
+     * 删除电影
+     * @return
+     */
+    @RequestMapping("/deleteById")
+    public ModelAndView deleteById(HttpServletRequest request) {
+        String jsonStr = getJsonFromRequest(request);
+        List<Movie> movieList = Util.jsonArrToList(jsonStr, Movie.class);
+        movieService.deleteAll(movieList);
+        return this.movieListPanel(null);
+    }
+
 }

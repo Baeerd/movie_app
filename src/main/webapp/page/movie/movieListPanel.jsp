@@ -86,7 +86,7 @@
 
                         <button type="button" class="btn btn-info round" onclick="showMoiveAdd()">新增</button>
 
-                        <button type="button" class="btn btn-danger round">删除</button>
+                        <button type="button" class="btn btn-danger round" onclick="deleteMovie()">删除</button>
 
                         <button type="button" class="btn btn-purple round" onclick="showOrder();">购买</button>
 
@@ -202,6 +202,19 @@
     function showMoiveAdd()
     {
         window.location = "/movie/movieAdd";
+    }
+
+    /**
+     * 删除电影
+     * @returns {boolean}
+     */
+    function deleteMovie() {
+        if(!selectMovieId) {
+            swal("请选择需要删除的电影!");
+            return false;
+        }
+        // 删除电影
+        window.location = "/movie/deleteById?id="+selectMovieId;
     }
 
 </script>
