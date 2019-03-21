@@ -68,7 +68,7 @@
 		        and created_by = #{createdBy,jdbcType=VARCHAR}
 		      </if>
 		      <if test="partName != null" >
-		        and part_name = #{partName,jdbcType=VARCHAR}
+		        and part_name like '%${partName}%'
 		      </if>
 		      <if test="partRemark != null" >
 		        and part_remark = #{partRemark,jdbcType=VARCHAR}

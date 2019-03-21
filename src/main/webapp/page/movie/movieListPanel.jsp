@@ -52,33 +52,6 @@
                             </div>
                         </div>
 
-                        <%--<div class="form-group">
-                            <label class="col-md-2 control-label">Password</label>
-                            <div class="col-md-10">
-                                <input class="form-control" value="password" type="password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Disabled</label>
-                            <div class="col-md-10">
-                                <input class="form-control" disabled="" value="Disabled value" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Input Select</label>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                        </div>--%>
-
                         <!--       按钮开始       -->
 
                         <button type="submit" class="btn btn-success round">查询</button>

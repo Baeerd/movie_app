@@ -37,6 +37,37 @@
             <div class="clearfix"></div>
         </div>
         <!--End Page Title-->
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+
+                    <form id="queryForm" class="form-horizontal" method = 'post'  action = '/moviePart/partListPanel'>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="partName">名称</label>
+                            <div class="col-md-10">
+                                <input id="partName" name="partName" value="${partName}" class="form-control" placeholder="支持模糊查询" type="text">
+                            </div>
+                        </div>
+
+                        <!--       按钮开始       -->
+
+                        <button type="submit" class="btn btn-success round">查询</button>
+
+                        <button type="button" class="btn btn-warning round" onclick="formReset()">重置</button>
+
+                        <button type="button" class="btn btn-info round" onclick="showPartAdd()">新增</button>
+
+                        <button type="button" class="btn btn-danger round" onclick="deleteMoviePart()">删除</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <!-- 分页 -->
         <%@include file="../pageInfo.jsp"%>
 
@@ -47,12 +78,12 @@
                 <c:forEach items="${page.list}" var="part">
 
                     <div class="col-md-4">
-                        <div class="panel panel-color  panel-info">
+                        <div class="panel panel-color  panel-info" onclick="selectPanel(this, ${part.id});">
                             <div class="panel-heading">
                                 <h3 class="panel-title">${part.partName}</h3>
                             </div>
                             <div class="panel-body" align="center">
-                                <img src="${part.image}" width="200" height="200">
+                                <img src="${part.image}" width="300" height="200">
                                 <p/>
                                 <p>
                                     ${part.partRemark}
@@ -87,8 +118,68 @@
 <script  src="/assets/js/jquery.slimscroll.js "></script>
 <script src="/assets/js/jquery.nicescroll.js"></script>
 <script src="/assets/js/functions.js"></script>
+
+
+<script src="/assets/plugins/sweetalert/sweet-alert.js"></script>
+<script src="/assets/pages/jquery.sweet-alert.custom.js"></script>
+
 <!-- End core plugin -->
 <script src="/js/plugin.js"></script>
+
+
+    <script type="text/javascript">
+        var selectPartId;
+        var lastElement;
+
+        /**
+         * 列表选择事件
+         * @param e
+         * @param id
+         */
+        function selectPanel(e, id) {
+            selectPartId = id;
+            // 改变样式
+            if(lastElement) {
+                $(lastElement).removeClass("panel-purple");
+                $(lastElement).addClass("panel-info");
+            }
+            $(e).removeClass("panel-info");
+            $(e).addClass("panel-purple");
+            lastElement = e;
+        }
+
+
+        /**
+         * 重置
+         */
+        function formReset()
+        {
+            document.getElementById("queryForm").reset();
+        }
+
+        /**
+         *页面跳转新增part
+         */
+        function showPartAdd()
+        {
+            window.location = "/moviePart/partAdd";
+        }
+
+        /**
+         * 删除电影
+         * @returns {boolean}
+         */
+        function deleteMoviePart() {
+            if(!selectPartId) {
+                swal("请选择需要删除的影院!");
+                return false;
+            }
+            // 删除影院
+            window.location = "/moviePart/deleteById?id="+selectPartId;
+        }
+
+    </script>
+
 
 
 </body>
