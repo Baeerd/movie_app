@@ -140,7 +140,7 @@
                         content += '<td style="background: red">'+placeDataList[index-1].placeNo+'</td>';
                     } else {
                         // 未占用
-                        content += '<td onclick="selectPlace(this, '+placeDataList[index-1].id+');">'+placeDataList[index-1].placeNo+'</td>';
+                        content += '<td onclick="selectPlace(this, '+placeDataList[index-1].id+', '+placeDataList[index-1].placeNo+');">'+placeDataList[index-1].placeNo+'</td>';
                     }
                     if(index == 50) {
                         content += tr2;
@@ -161,18 +161,21 @@
 
 
         var selectIds = [];
+        var selectPlaceNOs = [];
         var moviePrice;
         /**
          * 座位选择
          */
-        function selectPlace(e, id) {
+        function selectPlace(e, id, placeNo) {
             console.log(selectIds);
             if(selectIds.indexOf(id)!=-1) {
                 $(e).css("background", "white");
                 selectIds.remove(id);
+                selectPlaceNOs.remove(placeNo);
             } else {
                 $(e).css("background", "green");
                 selectIds.push(id);
+                selectPlaceNOs.push(placeNo);
             }
         }
 
@@ -192,16 +195,19 @@
             var jsonData = {};
             jsonData['rMovieId'] = $("#partIdSelect").val();
             var selectIdsStr = "";
+            var selectPlaceNosStr = "";
             for(var i=0; i<selectIds.length; i++) {
                 selectIdsStr += selectIds[i] + ",";
+                selectPlaceNosStr += selectPlaceNOs[i] + ",";
             }
-            jsonData['placeNos'] = selectIdsStr;
+            jsonData['ids'] = selectIdsStr;
+            jsonData['placeNos'] = selectPlaceNosStr;
             // 计算总价并提示
             var totalPrice = moviePrice * selectIds.length;
             jsonData['totalPrice'] = totalPrice;
             swal({
                 title: "确定下单吗?",
-                text: "购买座位号："+selectIdsStr+"总计："+totalPrice+"元",
+                text: "购买座位号："+selectPlaceNosStr+"总计："+totalPrice+"元",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

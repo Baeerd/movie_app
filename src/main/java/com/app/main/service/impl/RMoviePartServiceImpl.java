@@ -227,6 +227,7 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
     @Override
     public Long saveOrder(Map<String, String> map) {
         String rMovieId = map.get("rMovieId");
+        String ids = map.get("ids");
         String placeNos = map.get("placeNos");
         String totalPrice = map.get("totalPrice");
         if(StringUtils.isEmpty(rMovieId) || StringUtils.isEmpty(placeNos)) {
@@ -235,7 +236,7 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
         // 保存订单信息
         Long orderId = saveOrder(rMovieId, placeNos, totalPrice);
         // 修改座位占用信息
-        updatePlace(placeNos);
+        updatePlace(ids);
         return orderId;
     }
 
@@ -261,11 +262,11 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
 
     /**
      * 修改座位占用信息
-     * @param placeNos
+     * @param ids
      */
-    private void updatePlace(String placeNos) {
-        String[] placeNoList = placeNos.split(",");
-        for (String id : placeNoList) {
+    private void updatePlace(String ids) {
+        String[] idList = ids.split(",");
+        for (String id : idList) {
             placeMapper.updateIsUseById(id);
         }
     }
