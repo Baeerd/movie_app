@@ -131,6 +131,18 @@ public class Util {
         return format.format(date);
     }
 
+    /**
+     * 根据格式自定义时间格式
+     * @return
+     */
+    public static String formatDate(Date date, String formatStr) {
+        if(date == null) {
+            return "";
+        }
+        SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        return format.format(date);
+    }
+
     public static void main(String[] args) {
         DataConfig dataConfig = new DataConfig();
         dataConfig.setName("name");

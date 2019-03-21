@@ -1,6 +1,7 @@
 package com.app.main.service.impl;
 
 import com.app.common.entity.Constant;
+import com.app.common.exception.MessageException;
 import com.app.common.util.BeanUtils;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
@@ -8,6 +9,8 @@ import com.app.main.entity.MainDataVo;
 import com.app.movie.entity.Movie;
 import com.app.movie.entity.MovieVo;
 import com.app.movie.mapper.MovieMapper;
+import com.app.order.entity.MovieOrder;
+import com.app.order.service.MovieOrderService;
 import com.app.part.entity.MoviePart;
 import com.app.place.entity.Place;
 import com.app.place.mapper.PlaceMapper;
@@ -36,6 +39,9 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
 
     @Autowired
     private PlaceMapper placeMapper;
+
+    @Autowired
+    private MovieOrderService movieOrderService;
 
     @Override
     public List<MainDataVo> getMovieData(Map<String, String> param) {
@@ -216,6 +222,52 @@ public class RMoviePartServiceImpl extends BaseServiceImpl<RMoviePart> implement
             resultList.add(movieVo);
         }
         return resultList;
+    }
+
+    @Override
+    public Long saveOrder(Map<String, String> map) {
+        String rMovieId = map.get("rMovieId");
+        String placeNos = map.get("placeNos");
+        String totalPrice = map.get("totalPrice");
+        if(StringUtils.isEmpty(rMovieId) || StringUtils.isEmpty(placeNos)) {
+            throw new MessageException("场次和座位号不允许为空");
+        }
+        // 保存订单信息
+        Long orderId = saveOrder(rMovieId, placeNos, totalPrice);
+        // 修改座位占用信息
+        updatePlace(placeNos);
+        return orderId;
+    }
+
+    /**
+     * 保存订单信息
+     * @param rMovieId
+     */
+    private Long saveOrder(String rMovieId, String placeNos, String totalPrice) {
+        String[] placeNoList = placeNos.split(",");
+        MovieOrder order = new MovieOrder();
+        order.setCreatedDt(new Date());
+        order.setCreatedBy(LoginUtil.getUserName());
+        order.setNum(Integer.toString(placeNoList.length));
+        order.setRMovieId(rMovieId);
+        order.setState("1");// 已支付
+        order.setTotalPrice(totalPrice);
+        // 订单号生成规则：用户名+年月日时分秒(yyyyMMddHHmmss)(admin20180808120000)
+        order.setOrderNo(LoginUtil.getUserName()+Util.formatDate(new Date(), "yyyyMMddHHmmss"));
+        order.setPlaceNo(placeNos.substring(0,placeNos.length()-1));// 座位号，格式 01,02,03
+        movieOrderService.insert(order);
+        return order.getId();
+    }
+
+    /**
+     * 修改座位占用信息
+     * @param placeNos
+     */
+    private void updatePlace(String placeNos) {
+        String[] placeNoList = placeNos.split(",");
+        for (String id : placeNoList) {
+            placeMapper.updateIsUseById(id);
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package com.app.comment.controller;
 
 import com.app.comment.service.CommentService;
 import com.app.common.entity.PageModel;
+import com.app.common.entity.Response;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,13 @@ public class CommentController extends BaseController<Comment>{
             modelAndView.addObject("commentSearch", params.get("commentSearch"));
         }
         return modelAndView;
+    }
+
+    @RequestMapping("/addComment")
+    public Response addComment(HttpServletRequest request) {
+        String json = super.getJsonFromRequest(request);
+        Map<String, String> map = Util.jsonToMap(json);
+        commentService.addComment(map);
+        return new Response().success();
     }
 }

@@ -15,6 +15,10 @@ public class MovieOrder extends AbstractEntity{
 
     private String num;
 
+    private String orderNo;
+
+    private String placeNo;
+
     public String getState() {
         return state;
     }
@@ -47,4 +51,19 @@ public class MovieOrder extends AbstractEntity{
         this.num = num;
     }
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getPlaceNo() {
+        return placeNo;
+    }
+
+    public void setPlaceNo(String placeNo) {
+        this.placeNo = placeNo;
+    }
 }

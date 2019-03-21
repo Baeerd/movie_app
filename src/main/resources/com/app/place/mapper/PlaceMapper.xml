@@ -79,4 +79,8 @@
 	      </trim>
 	order by id
   </select>
+
+    <update id="updateIsUseById" parameterType="java.lang.String">
+        update place set is_use = '1' where id = #{id}
+    </update>
 </mapper>

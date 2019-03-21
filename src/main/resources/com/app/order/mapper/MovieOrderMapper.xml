@@ -9,6 +9,8 @@
     <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
     <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
     <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="PLACE_NO" property="placeNo" jdbcType="VARCHAR" />
 
     <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
     <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
@@ -18,17 +20,20 @@
 
 
   <sql id="Base_Column_List" >
-    id,created_dt,created_by,state,r_movie_id,total_price,num
+    id,created_dt,created_by,state,r_movie_id,total_price,num,order_no,place_no
   </sql>
 
 
   <insert id="insert" parameterType="com.app.order.entity.MovieOrder" >
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+          select LAST_INSERT_ID()
+      </selectKey>
     insert into movie_order (created_dt,created_by,
       state,r_movie_id,total_price,
-      num)
+      num,order_no,place_no)
     values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
       #{state,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT},#{totalPrice,jdbcType=DECIMAL},
-      #{num,jdbcType=DECIMAL})
+      #{num,jdbcType=DECIMAL},#{orderNo,jdbcType=VARCHAR},#{placeNo,jdbcType=VARCHAR})
   </insert>
 
   <update id="update" parameterType="com.app.order.entity.MovieOrder" >
@@ -54,6 +59,12 @@
           </if>
           <if test="num != null" >
               num = #{num,jdbcType=DECIMAL},
+          </if>
+          <if test="orderNo != null" >
+              ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+          </if>
+          <if test="placeNo != null" >
+              PLACE_NO = #{placeNo,jdbcType=VARCHAR},
           </if>
       </set>
   		where id = #{id,jdbcType=BIGINT}
@@ -90,6 +101,12 @@
 		      <if test="num != null" >
 		        and num = #{num,jdbcType=DECIMAL}
 		      </if>
+              <if test="orderNo != null" >
+                and ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+              </if>
+              <if test="placeNo != null" >
+                and PLACE_NO = #{placeNo,jdbcType=VARCHAR}
+              </if>
 	      </trim>
 	order by id desc
   </select>
@@ -131,7 +148,14 @@
             <if test="orderSearch != null">
                 and (b.part_name like '%${orderSearch}%' or b.movie_name like '%${orderSearch}%')
             </if>
+            <if test="orderNo != null" >
+                and ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="placeNo != null" >
+                and PLACE_NO = #{placeNo,jdbcType=VARCHAR}
+            </if>
         </trim>
+        ORDER BY a.id DESC
     </select>
 
     <select id="findOrderListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -161,6 +185,12 @@
             </if>
             <if test="orderSearch != null">
                 and (b.part_name like '%${orderSearch}%' or b.movie_name like '%${orderSearch}%')
+            </if>
+            <if test="orderNo != null" >
+                and ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="placeNo != null" >
+                and PLACE_NO = #{placeNo,jdbcType=VARCHAR}
             </if>
         </trim>
     </select>

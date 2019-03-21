@@ -24,7 +24,7 @@
                         <li class="notification-scroll-list notification-list ">
                             <c:forEach items="${userOrderList}" var="order">
                                 <!-- list item-->
-                                <a href="javascript:void(0);" class="list-group-item">
+                                <a href="javascript:window.location='/order/orderDetail?id=${order.id}';" class="list-group-item">
                                     <div class="media">
                                         <div class="pull-left p-r-10">
                                             <img src="${order.image}" width="50" height="50"/>

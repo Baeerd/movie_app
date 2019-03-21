@@ -10,4 +10,10 @@ import java.util.Map;
 public interface CommentService extends BaseService<Comment>{
 
     PageModel<Comment> findCommentList(Map<String, String> params);
+
+    /**
+     * 添加评论
+     * @param map
+     */
+    void addComment(Map<String, String> map);
 }

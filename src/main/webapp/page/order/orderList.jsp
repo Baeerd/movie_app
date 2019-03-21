@@ -83,11 +83,8 @@
                                          上映时间：${order.showStartView}
                                      </a>
                                      <div align="right">
-                                         <button type="button" class="btn btn-info round">
+                                         <button type="button" class="btn btn-info round" onclick="showOrderDetail(${order.id});">
                                              <span class="btn-label"><i class="fa fa-exclamation"></i></span>查看详细信息
-                                         </button>
-                                         <button type="button" class="btn btn-danger round">
-                                             <span class="btn-label"><i class="fa fa-times"></i></span>退款
                                          </button>
                                      </div>
                                      <p></p>
@@ -120,7 +117,19 @@
     <script src="/assets/js/jquery.nicescroll.js"></script>
     <script src="/assets/js/functions.js"></script>
     <!-- End core plugin -->
-    
+
+    <script src="/js/plugin.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * 显示订单详细信息
+         */
+        function showOrderDetail(orderId) {
+            window.location = "/order/orderDetail?id="+orderId;
+        }
+
+    </script>
 
 </body>
 

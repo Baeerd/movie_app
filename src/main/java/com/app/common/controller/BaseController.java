@@ -57,8 +57,17 @@ public class BaseController<T> {
      * 默认以实体对象类名的前缀小写形式+Service获取对应的Service对象实例
      */
     protected BaseService<T> getBaseService() {
-        BaseService<T> baseService = (BaseService<T>) findBean(StringUtils.uncapitalize(entityClassName)
-                + "ServiceImpl");
+        BaseService<T> baseService;
+        // 如果两个大写字母开头，spring注解扫描bean的规则为直接返回类名，所以需要特殊处理
+        // 判断第二个字母是否为大写
+        char c = entityClassName.charAt(1);
+        if(c < 97 || c > 122) {
+            baseService = (BaseService<T>) findBean(entityClassName
+                    + "ServiceImpl");
+        } else {
+            baseService = (BaseService<T>) findBean(StringUtils.uncapitalize(entityClassName)
+                    + "ServiceImpl");
+        }
         return baseService;
     }
 

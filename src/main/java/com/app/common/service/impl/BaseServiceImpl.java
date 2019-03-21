@@ -44,8 +44,16 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     protected BaseMapper<T> getBaseMapper() {
         BaseMapper<T> baseMapper = null;
         if (this.entityClass != null) {
-            baseMapper = (BaseMapper<T>) AppServiceHelper
-                    .findBean(StringUtils.uncapitalize(entityClassName) + "Mapper");
+            // 如果两个大写字母开头，spring注解扫描bean的规则为直接返回类名，所以需要特殊处理
+            // 判断第二个字母是否为大写
+            char c = entityClassName.charAt(1);
+            if(c < 97 || c > 122) {
+                baseMapper = (BaseMapper<T>) AppServiceHelper
+                        .findBean(entityClassName + "Mapper");
+            } else {
+                baseMapper = (BaseMapper<T>) AppServiceHelper
+                        .findBean(StringUtils.uncapitalize(entityClassName) + "Mapper");
+            }
         }
         return baseMapper;
     }

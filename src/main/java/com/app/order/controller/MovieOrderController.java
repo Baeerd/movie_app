@@ -2,6 +2,7 @@ package com.app.order.controller;
 
 import com.app.comment.entity.Comment;
 import com.app.common.entity.PageModel;
+import com.app.common.entity.Response;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
 import com.app.main.entity.MainDataVo;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.app.common.controller.BaseController;
 import com.app.order.entity.MovieOrder;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @Scope("prototype")
 @RequestMapping("/order")
 public class MovieOrderController extends BaseController<MovieOrder>{
@@ -73,6 +75,33 @@ public class MovieOrderController extends BaseController<MovieOrder>{
         if(movieList != null && movieList.size() > 0) {
             modelAndView.addObject("movie", movieList.get(0));
         }
+        return modelAndView;
+    }
+
+    /**
+     * 保存订单信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/saveOrder")
+    public Response saveOrder(HttpServletRequest request) {
+        String json = super.getJsonFromRequest(request);
+        Map<String, String> map = Util.jsonToMap(json);
+        Long orderId = rMoviePartService.saveOrder(map);
+        return new Response().success(orderId);
+    }
+
+    /**
+     * 订单详细信息页面
+     * @return
+     */
+    @RequestMapping("/orderDetail")
+    public ModelAndView orderDetail(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("/order/orderDetail");
+        String json = super.getJsonFromRequest(request);
+        Map<String, String> params = Util.jsonToMap(json);
+        MainDataVo mainData = movieOrderService.getOrderDataById(params.get("id"));
+        modelAndView.addObject("mainData", mainData);
         return modelAndView;
     }
 }

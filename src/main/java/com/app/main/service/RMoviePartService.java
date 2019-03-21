@@ -37,4 +37,10 @@ public interface RMoviePartService extends BaseService<RMoviePart>{
      * @return
      */
     List<MainDataVo> findPartByMovieId(String movieId);
+
+    /**
+     * 保存订单及座位信息
+     * @param map
+     */
+    Long saveOrder(Map<String, String> map);
 }

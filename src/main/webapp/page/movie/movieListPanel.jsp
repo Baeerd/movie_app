@@ -43,7 +43,8 @@
                 <div class="white-box">
 
                     <form id="queryForm" class="form-horizontal" method = 'post'  action = '/movie/movieListPanel'>
-
+                        <input type="hidden" name="pageNum"/>
+                        <input type="hidden" name="pageSize"/>
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="name">名称</label>
                             <div class="col-md-10">

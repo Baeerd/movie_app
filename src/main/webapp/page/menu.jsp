@@ -24,20 +24,13 @@
                 </ul>
             </li>
 
-            <li class="menu-list"> <a href="#"><i class="icon-grid"></i> <span>电影浏览</span></a>
+            <li class="menu-list nav-active"> <a href="#"><i class="icon-grid"></i> <span>电影浏览</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="/movie/movieListPanel"> 电影浏览</a></li>
                     <li><a href="/moviePart/partListPanel">影院浏览</a></li>
                 </ul>
             </li>
 
-            <li class="menu-list"><a href="#"><i class="icon-envelope-open"></i> <span>影院浏览</span></a>
-                <ul class="sub-menu-list">
-                    <li><a href="inbox.html"> Inbox</a></li>
-                    <li> <a href="compose.html"> Compose Mail</a></li>
-                    <li><a href="message-view.html"> View Mail</a></li>
-                </ul>
-            </li>
 
 
         </ul>

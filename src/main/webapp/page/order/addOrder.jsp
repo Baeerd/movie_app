@@ -78,6 +78,7 @@
                                          <p>
                                              ${movie.remark}
                                          </p>
+                                         <p id="moviePrice"></p>
                                      </div>
                                  </div>
                              </div>
@@ -149,10 +150,18 @@
                 }
                 $("#placeSelectList").html(content);
             });
+
+            // 显示该场次影院单价
+            $.get("/main/findByParam", {"id" : e.value}, function(data){
+                var movie = data.data[0];
+                $("#moviePrice").html('电影单价：' + movie.price);
+                moviePrice = movie.price;
+            });
         }
 
 
         var selectIds = [];
+        var moviePrice;
         /**
          * 座位选择
          */
@@ -179,7 +188,38 @@
                 swal("请选择座位!");
                 return false;
             }
-            swal("付款成功!");
+            // 保存订单信息
+            var jsonData = {};
+            jsonData['rMovieId'] = $("#partIdSelect").val();
+            var selectIdsStr = "";
+            for(var i=0; i<selectIds.length; i++) {
+                selectIdsStr += selectIds[i] + ",";
+            }
+            jsonData['placeNos'] = selectIdsStr;
+            // 计算总价并提示
+            var totalPrice = moviePrice * selectIds.length;
+            jsonData['totalPrice'] = totalPrice;
+            swal({
+                title: "确定下单吗?",
+                text: "购买座位号："+selectIdsStr+"总计："+totalPrice+"元",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "下单",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(isConfirm){
+                if (isConfirm) {
+                    $.post("/order/saveOrder", jsonData, function(data) {
+                        console.log(data);
+                        swal("付款成功!");
+                        selectIds = [];
+                        moviePrice = "";
+                        window.location = "/order/orderDetail?id="+data.data;
+                    });
+                }
+            });
         }
     </script>
 

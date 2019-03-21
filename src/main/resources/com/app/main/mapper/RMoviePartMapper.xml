@@ -17,6 +17,16 @@
     <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
     <result column="SHOW_TIME" property="showTime" jdbcType="VARCHAR" />
 
+    <result column="MOVIE_REMARK" property="movieRemark" jdbcType="VARCHAR" />
+    <result column="PART_REMARK" property="partRemark" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="PLACE_NO" property="placeNo" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="PART_IMAGE" property="partImage" jdbcType="VARCHAR" />
+    <result column="MOVIE_IMAGE" property="movieImage" jdbcType="VARCHAR" />
+
+
   </resultMap>
 
     <resultMap id="PartResultMap" type="com.app.part.entity.MoviePart" >
@@ -184,6 +194,28 @@
     </update>
 
     <select id="findPartByMovieId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT a.id, a.show_start, a.show_no, b.part_name FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId} ORDER BY b.part_name, a.show_start, a.show_no
+        SELECT a.id, a.show_start, a.show_no, b.part_name, a.price FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId} ORDER BY b.part_name, a.show_start, a.show_no
+    </select>
+
+    <select id="getOrderDataById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT  rmp.id,
+                o.order_no,
+                p.part_name,
+                p.part_remark,
+                p.image part_Image,
+                m.name movie_name,
+                m.remark movie_remark,
+                m.image movie_image,
+                rmp.show_start,
+                rmp.show_no,
+                rmp.price,
+                o.num,
+                o.total_price,
+                o.place_no
+        FROM r_movie_part rmp
+            JOIN movie_order o ON rmp.id = o.r_movie_id
+            JOIN movie m ON rmp.movie_id = m.id
+            JOIN movie_part p ON rmp.part_id = p.id
+	     where o.id = #{orderId}
     </select>
 </mapper>
