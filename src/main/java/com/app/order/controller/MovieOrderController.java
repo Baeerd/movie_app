@@ -1,6 +1,7 @@
 package com.app.order.controller;
 
 import com.app.comment.entity.Comment;
+import com.app.common.entity.Constant;
 import com.app.common.entity.PageModel;
 import com.app.common.entity.Response;
 import com.app.common.util.LoginUtil;
@@ -88,6 +89,7 @@ public class MovieOrderController extends BaseController<MovieOrder>{
         String json = super.getJsonFromRequest(request);
         Map<String, String> map = Util.jsonToMap(json);
         Long orderId = rMoviePartService.saveOrder(map);
+        request.getSession().setAttribute(Constant.USER_ORDER_LIST, movieOrderService.findOrderForIndex());
         return new Response().success(orderId);
     }
 

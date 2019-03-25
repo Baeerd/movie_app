@@ -135,10 +135,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         if(params==null) {
             params = new HashMap<>();
         }
-        if(params.get("pageNum")==null) {
+        if(params.get("pageNum")==null||"".equals(params.get("pageNum"))) {
             params.put("pageNum", ""+PageModel.PAGENUM);
         }
-        if(params.get("pageSize")==null) {
+        if(params.get("pageSize")==null||"".equals(params.get("pageSize"))) {
             params.put("pageSize", ""+PageModel.PAGESIZE);
         }
         return params;

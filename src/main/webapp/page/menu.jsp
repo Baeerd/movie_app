@@ -16,8 +16,8 @@
 
             <li class="menu-list nav-active"><a href="#"><i class="icon-layers"></i> <span>影视信息后台管理</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="/page/movie/movieList.jsp"> 电影管理</a></li>
-                    <li ><a href="ui-panels.html"> 影院管理</a></li>
+                    <li><a href="/movie/movieListPanel"> 电影管理</a></li>
+                    <li ><a href="/moviePart/partListPanel"> 影院管理</a></li>
                     <li><a href="/main/option">影院设置</a></li>
                     <li><a href="/order/orderList">订单查询</a></li>
                     <li><a href="/comment/commentList">评论管理</a></li>

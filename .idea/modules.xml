@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/movie-app.iml" filepath="$PROJECT_DIR$/movie-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moive_app.iml" filepath="$PROJECT_DIR$/moive_app.iml" />
     </modules>
   </component>
 </project>
