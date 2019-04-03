@@ -5,9 +5,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
     <title></title>
     <link href="/assets/css/icons.css" rel="stylesheet">
@@ -82,7 +79,7 @@
 
 
     <!--Start  Footer -->
-    <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.</footer>
+    <footer class="footer-main"></footer>
     <!--End footer -->
 
 </div>

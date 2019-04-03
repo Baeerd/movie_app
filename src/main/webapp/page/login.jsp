@@ -5,9 +5,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="/assets/images/favicon.png" type="image/png">
     <title></title>
     <link href="/assets/css/icons.css" rel="stylesheet">
@@ -33,12 +30,12 @@
 
                     <form action="/system/login">
                         <div class="login-group">
-                            <input type="text" class="form-control" name="username" placeholder="用户名" value="admin">
+                            <input type="text" class="form-control" name="username" placeholder="用户名">
                         </div>
                         <br/><br/><br/>
 
                         <div class="login-group">
-                            <input type="text" class="form-control" name="password"  placeholder="密码" value="123">
+                            <input type="text" class="form-control" name="password"  placeholder="密码">
                         </div>
 
                         <br/><br/><br/>

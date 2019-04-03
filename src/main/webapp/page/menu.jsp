@@ -3,11 +3,11 @@
 <div class="left-side sticky-left-side">
     <!--logo-->
     <div class="logo">
-        <a href="index.html"><img src="/assets/images/logo.png" alt=""></a>
+        <a href="/"><img src="/assets/images/logo-dark.png" alt="" height="50px;" width="100px;"></a>
     </div>
 
     <div class="logo-icon text-center">
-        <a href="index.html"><img src="/assets/images/logo-icon.png" alt=""></a>
+        <a href="/"><img src="/assets/images/logo-dark.png" alt="" height="40px;" width="50px;"></a>
     </div>
 
     <div class="left-side-inner">

@@ -5,9 +5,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <link rel="icon" href="/assets/images/favicon.png" type="image/png">
   <title></title>
    <link href="/assets/css/icons.css" rel="stylesheet">
@@ -25,9 +22,9 @@
      <div class="container">
          <div class="row">
              <div class="error-inner">
-                 <h1>500</h1>
-                 <h3>服务器出现错误</h3>
-                 <p>Sorry, something went wrong </p>
+                 <h1>404</h1>
+                 <h3>页面走丢了...φ(>ω<*) </h3>
+                 <p>Sorry, 页面走丢了...φ(>ω<*) </p>
                  <a href="/" class="btn btn-primary">回到首页</a>
              </div>   
          </div>

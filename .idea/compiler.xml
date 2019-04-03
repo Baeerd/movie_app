@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="moive_app" />
+        <module name="movie_app" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="moive_app" target="1.8" />
+      <module name="movie_app" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
