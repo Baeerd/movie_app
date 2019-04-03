@@ -1,8 +1,5 @@
 package com.app.common.util;
 
-import com.app.common.entity.DataConfig;
-import com.app.image.entity.Image;
-import com.fasterxml.jackson.core.JsonParser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -141,15 +138,6 @@ public class Util {
         }
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
         return format.format(date);
-    }
-
-    public static void main(String[] args) {
-        DataConfig dataConfig = new DataConfig();
-        dataConfig.setName("name");
-        dataConfig.setValue("value");
-        dataConfig.setCreatedDt(new Date());
-        String result = beanToJson(dataConfig);
-        System.out.println(result);
     }
 
 }
