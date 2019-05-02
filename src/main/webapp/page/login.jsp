@@ -28,14 +28,18 @@
                     <br/><br/>
                     <h2 class="header2-title text-center">影视信息系统</h2>
 
+                    <span><font color="red">${msg}</font></span>
+                    <span><font color="red">${error}</font></span>
+
                     <form action="/system/login">
                         <div class="login-group">
-                            <input type="text" class="form-control" name="username" placeholder="用户名">
+
+                            <input type="text" class="form-control" name="username" placeholder="用户名" value="${user.username}">
                         </div>
                         <br/><br/><br/>
 
                         <div class="login-group">
-                            <input type="text" class="form-control" name="password"  placeholder="密码">
+                            <input type="password" class="form-control" name="password"  placeholder="密码">
                         </div>
 
                         <br/><br/><br/>
@@ -47,7 +51,7 @@
                         <br/><br/><br/>
 
                         <div class="login-group text-center">
-                            没有账号?  <a href="registration.html">点击注册 </a>
+                            没有账号?  <a href="/regist.html">点击注册 </a>
                         </div>
 
                     </form>

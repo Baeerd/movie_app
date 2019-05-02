@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--Start left side Menu-->
 <div class="left-side sticky-left-side">
     <!--logo-->
@@ -16,9 +17,13 @@
 
             <li class="menu-list nav-active"><a href="#"><i class="icon-layers"></i> <span>影视信息后台管理</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="/movie/movieListPanel"> 电影管理</a></li>
-                    <li ><a href="/moviePart/partListPanel"> 影院管理</a></li>
-                    <li><a href="/main/option">影院设置</a></li>
+                    <c:choose>
+                        <c:when test="${loginUser.username=='admin'}">
+                            <li><a href="/movie/movieListPanel"> 电影管理</a></li>
+                            <li ><a href="/moviePart/partListPanel"> 影院管理</a></li>
+                            <li><a href="/main/option">影院设置</a></li>
+                        </c:when>
+                    </c:choose>
                     <li><a href="/order/orderList">订单查询</a></li>
                     <li><a href="/comment/commentList">评论管理</a></li>
                 </ul>

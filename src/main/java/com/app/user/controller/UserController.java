@@ -12,9 +12,13 @@ import com.app.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,10 +58,24 @@ public class UserController extends BaseController<User>{
     }
 
     @RequestMapping("/regist")
-    public void regist(HttpServletRequest request) {
+    public ModelAndView regist(HttpServletRequest request) {
         String json = this.getJsonFromRequest(request);
         User user = Util.jsonToBean(json, User.class);
-        System.out.println(user);
+        user.setCreatedDt(new Date());
+        user.setCreatedBy(user.getUsername());
+        ModelAndView mv = new ModelAndView("/login");
+        mv.addObject(user);
+        Map<String,String> params = new HashMap<>();
+        params.put("username",user.getUsername());
+        List<User> userList = userService.findByParam(params);
+        if (!userList.isEmpty()){
+            mv.addObject("msg","此用户名已被注册，请登录！");
+            return mv;
+        }
+
+        userService.insert(user);
+        mv.addObject("msg","注册成功，请登录！");
+        return mv;
     }
 
     @RequestMapping("/logout")

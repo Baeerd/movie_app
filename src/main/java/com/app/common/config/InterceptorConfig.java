@@ -45,6 +45,8 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         // 不拦截的地址
         String[] exPatterns = new String[]{
                 "/system/login",
+                "/system/regist",
+                "/regist.html",
                 "/login.html"
         };
         interceptorRegistration.excludePathPatterns(exPatterns);
