@@ -55,10 +55,13 @@
 
                         <button type="button" class="btn btn-warning round" onclick="formReset()">重置</button>
 
-                        <button type="button" class="btn btn-info round" onclick="showMoiveAdd()">新增</button>
+                        <c:choose>
+                            <c:when test="${loginUser.username=='admin'}">
+                                <button type="button" class="btn btn-info round" onclick="showMoiveAdd()">新增</button>
 
-                        <button type="button" class="btn btn-danger round" onclick="deleteMovie()">删除</button>
-
+                                <button type="button" class="btn btn-danger round" onclick="deleteMovie()">删除</button>
+                            </c:when>
+                        </c:choose>
                         <button type="button" class="btn btn-purple round" onclick="showOrder();">购买</button>
 
                     </form>

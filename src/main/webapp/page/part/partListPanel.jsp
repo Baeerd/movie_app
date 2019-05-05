@@ -55,9 +55,13 @@
 
                         <button type="button" class="btn btn-warning round" onclick="formReset()">重置</button>
 
-                        <button type="button" class="btn btn-info round" onclick="showPartAdd()">新增</button>
+                        <c:choose>
+                            <c:when test="${loginUser.username=='admin'}">
+                                <button type="button" class="btn btn-info round" onclick="showPartAdd()">新增</button>
 
-                        <button type="button" class="btn btn-danger round" onclick="deleteMoviePart()">删除</button>
+                                <button type="button" class="btn btn-danger round" onclick="deleteMoviePart()">删除</button>
+                            </c:when>
+                        </c:choose>
 
                     </form>
                 </div>

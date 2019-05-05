@@ -6,6 +6,8 @@ import com.app.common.entity.Constant;
 import com.app.common.exception.MessageException;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
+import com.app.movie.entity.Movie;
+import com.app.movie.service.MovieService;
 import com.app.order.service.MovieOrderService;
 import com.app.user.entity.User;
 import com.app.user.service.UserService;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +40,9 @@ public class UserController extends BaseController<User>{
 
     @Autowired
     private MovieOrderService movieOrderService;
+    
+    @Autowired
+    private MovieService movieService;
 
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -50,6 +57,14 @@ public class UserController extends BaseController<User>{
             request.getSession().setAttribute(LoginUtil.LOGINUSER, user);
             // session缓存用户拥有的订单信息
             request.getSession().setAttribute(Constant.USER_ORDER_LIST, movieOrderService.findOrderForIndex());
+            // 向session中放入3个电影信息用于主页显示
+            List<Movie> movieList = movieService.findAll();
+            List<Movie> indexMovieList = new ArrayList<>();
+            for(int i=0;i<3;i++) {
+            	indexMovieList.add(movieList.get(i));
+            }
+            request.getSession().setAttribute("indexMovieList", indexMovieList);
+            
             response.sendRedirect(LoginUtil.getInterceptorPath());
         } catch (MessageException e) {
             request.setAttribute("error", e.getMessage());
